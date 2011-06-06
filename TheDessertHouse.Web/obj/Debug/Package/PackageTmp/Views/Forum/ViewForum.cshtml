@@ -1,0 +1,127 @@
+﻿@model Pagination<ForumPostView>
+@using TheDessertHouse.Web
+@using TheDessertHouse.Web.Models
+@using System.Web.Script.Serialization
+
+
+@{
+    var serializedPosts = new JavaScriptSerializer().Serialize(Model.ToList());
+}
+<a href="#" id="lnkCreatePost" class="post-button">Create A Post For This Forum</a> 
+@Html.Partial(Url.Content("~/Views/Shared/Message.cshtml"))
+@if (Model.Count() == 0)
+{ 
+    <p>
+        There are no posts in this forum yet, you can be the first.</p>
+}
+
+    <div id="posts">
+       @* @foreach (var post in Model)
+        { 
+            <div id="post-@post.Id" class="post">
+                @if (User.IsInRole("Editor"))
+                { 
+                    <div class="admin">
+                        @if (!post.Closed)
+                        {
+                            <a class="close" meta:id="@post.Id" href="#close">Close</a> 
+                        }
+                        &nbsp;|&nbsp; <a class="remove" meta:id="@post.Id" href="#remove">Remove</a>
+                    </div>
+                }
+                <div class="stats">
+                    <div class="votes stats">
+                        <strong>@post.VoteCount</strong><small>votes</small></div>
+                    <div class="replies stats">
+                        <strong>@post.ReplyCount</strong><small>replies</small></div>
+                    <div class="views stats">
+                        <strong>@post.ViewCount</strong><small>views</small></div>
+                </div>
+                <h3>@Html.ActionLink(post.Title, "ViewPost", new { controller = "Forum", postId = post.Id, path = post.Path })
+                    @if (post.Closed)
+                    { 
+                        <span>[closed] </span>
+                    }
+                </h3>
+                <div class="posted-last">
+                    <span class="posted-at">@post.LastPostDate.SinceUTCTime() ago</span> <span class="posted-by">
+                        by
+                        <img src="@post.GetLastPostByAvatarUrl(16)" alt="" />
+                        @post.LastPostBy </span>
+                </div>
+            </div>
+            <hr />
+        }*@
+    </div>
+
+<div id="createPostContainer"></div>
+@Html.Partial("~/Views/Shared/Pager.cshtml", Model)
+@section scriptContent{
+<script type="text/javascript">
+    var forumId = '@ViewBag.ForumId';
+    var createPostUrl = '@Url.Action("CreatePost", "Forum")';
+    var deserializedPosts = '@serializedPosts'.replace(/\n/g,"<br/>").replace(/&quot;/g, "\"");
+    var postCollection = JSON.parse(deserializedPosts);
+    var userIsEditor = '@User.IsInRole("Editor")';
+    var authenticateUrl='@Url.Action("CheckAuthentication","Account")';
+    var loginUrl = '@Url.Action("Login","Account",new{returnUrl=Request.CurrentExecutionFilePath})';
+    var referrer='@Request.UrlReferrer';
+</script>
+<script type="text/x-jquery-tmpl" id="createPostTemplate">
+    <form method="post" class="post-create">
+        <input type="hidden" id="forum-${ForumId}" value="@ViewBag.ForumId" />						
+	    <p class="field input"><label for="txtTitle">Title</label><br />
+		    <input type="text" id="txtTitle" />
+        </p>
+		
+	    <p class="field input"><label for="txtBody">Body</label><br />
+		    <textarea id="txtBody" cols="3" rows="5" ></textarea>
+	    </p>
+		
+	    <hr />
+	    <p>
+        <center>
+        <input type="button" id="btnCreatePost" value="Post To Forum" />
+	    <input type="button" id="btnCancel" value="Cancel" />
+        </center>
+        </p>
+
+    </form>
+</script>
+
+<script type="text/x-jquery-tmpl" id="adminTemplate">
+    <div class="admin${PostId}">                   
+        <a class="close-post" href="#close" id="lnkClosePost${PostId}" meta:id="${PostId}">Close</a> 
+        &nbsp;|&nbsp; 
+        <a class="remove-post" href="#remove" id="lnkRemovePost${PostId}" meta:id="${PostId}">Remove</a>
+    </div>
+</script>
+
+<script type="text/x-jquery-tmpl" id="forumCollectionTemplate">
+ 
+    <div id="post-${PostId}" class="post">        
+        <div class="stats">
+            <div class="votes stat">
+                <strong>${VoteCount}</strong><small>votes</small></div>
+            <div class="replies stat">
+                <strong>${ReplyCount}</strong><small>replies</small></div>
+            <div class="views stat">
+                <strong>${ViewCount}</strong><small>views</small></div>
+        </div>
+        <h3>
+            <a href="/Forum/ViewPost/${PostId}/${Path}" id="lnkViewPost${PostId}">${Title}</a>                
+                    
+        </h3>
+        <div class="posted-last">
+            <span class="posted-at">${LastPostDate} ago</span> <span class="posted-by">
+                by
+                <img src="${Avatar}" alt="" />
+                ${LastPostBy} </span>
+        </div>
+    </div>
+    <hr />
+
+</script>
+<script type="text/javascript" src="@Url.Content("~/Content/scripts/forums.js")"></script>
+}
+

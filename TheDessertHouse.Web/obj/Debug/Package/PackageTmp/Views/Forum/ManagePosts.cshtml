@@ -1,0 +1,31 @@
+﻿@model IEnumerable<TheDessertHouse.Web.Models.ForumPostView>
+
+@foreach (var post in Model)
+{
+	<div id="post-@post.Id" class="post">
+		<div class="admin">
+			<a class="approve" meta:id="@post.Id" href="#approve">Approve</a>&nbsp;|&nbsp;
+			<a class="remove" meta:id="@post.Id" href="#remove">Remove</a>
+		</div>
+		<h3>@post.Title</h3>
+		<div class="posted-last">
+			<span class="posted-at">@post.LastPostDateInUTC ago</span>
+			<span class="posted-by">by <img src="@post.Avatar" alt="" /> @post.LastPostBy </span>
+		</div>
+		<a class="toggle-body" href="#">Show Body</a>
+		<div class="body" style="display:none">@post.Body</div>
+        <hr />
+	</div>
+	
+}
+
+@section scriptContent{
+    <script type="text/javascript">
+        var postApproveUrl='@Url.Action("ApprovePost", "Forum")';
+        var postRemoveUrl='@Url.Action("RemovePost", "Forum")';
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/manage-forums.js")"></script>
+}
+
+
+

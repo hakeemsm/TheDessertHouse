@@ -1,0 +1,19 @@
+﻿@model IEnumerable<TheDessertHouse.Web.Models.NewsletterView>
+@Html.Partial(Url.Content("~/Views/Shared/Message.cshtml"))
+@if (Model.ToList().Count > 0)
+{
+    <div id="Newsletter_Status_Table">
+        @Html.Partial("NewsletterStatus", Model)
+    </div>
+}
+<p>@Html.ActionLink("Create Newsletter", "CreateNewsletter")
+</p>
+@section scriptContent{
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/manage-newsletter.js")"></script>
+    <script type="text/javascript">
+        var delNewsletterUrl = '@Url.Action("RemoveNewsletter", "Newsletter")';
+        var updtStatusUrl = '@Url.Action("UpdateStatus", "Newsletter")';
+        var pendingUpdate = '@ViewBag.PendingNewsletter';
+        UpdateStatus();
+    </script>
+}

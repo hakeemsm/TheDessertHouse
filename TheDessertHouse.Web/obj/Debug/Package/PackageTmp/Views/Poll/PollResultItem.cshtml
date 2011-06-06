@@ -1,0 +1,19 @@
+﻿@model TheDessertHouse.Web.Models.PollView
+
+<div id="poll-@Model.Id" class="poll">
+	<h2>@Html.Encode(Model.PollQuestion)</h2>
+	
+	@{ var total = Model.Options.Sum(o => o.Votes); }
+	<ul class="poll-options">
+	@foreach(var option in Model.Options) {
+		var percentValue = Math.Round(((decimal)option.Votes / (decimal)total) * 100M);
+		<li class="option" id="option-@option.Id">
+			<h3>@Html.Encode(option.OptionText)</h3>
+			<div class="graph"><img src="@Url.Content("/Content/images/poll-graph.gif")" height="10" width="@Math.Floor(percentValue)%" alt="Poll Graph" /></div>
+			<div class="values">@Math.Floor(percentValue)% (@option.Votes votes)</div>
+		</li>
+	}
+	</ul>
+	<div class="total">There are @total total votes for this poll.</div>
+</div>           
+

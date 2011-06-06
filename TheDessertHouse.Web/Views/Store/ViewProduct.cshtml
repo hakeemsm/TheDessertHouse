@@ -1,0 +1,28 @@
+﻿@model TheDessertHouse.Web.Models.ProductView
+<div class="left">
+    <img src="@Model.FullImageUrl" title="@Model.Title" alt="@Model.Title" class="main-image" />
+</div>
+<div class="right">
+    <h3>@Model.Title</h3>
+    <p>
+        SKU: @Model.SKU</p>
+    <p>@Model.Description
+    </p>
+    <p>
+        Regular Price: <b>@Model.UnitPrice.ToString("C") </b>|
+        @{ var salePrice = ((Model.UnitPrice * (100 - Model.DiscountPercentage)) / 100).ToString("C");}
+        Sale Price: <b><font color="red">@salePrice</font></b> | Units Available: <b>@Model.UnitsInStock</b></p>
+</div>
+<br />
+<hr />
+@using(Html.BeginForm("AddItemToCart","Store",new{productId=Model.Id},FormMethod.Post,new{@class="add-cart"}))
+	{	
+
+    <p class="field input">
+        <label for="quantity">
+            Quantity:
+        </label>@Html.TextBox("quantity", 2, new { style = "width: 50px" })</p>
+    <p>
+        <button type="submit" id="add-item-button">
+            Add to Cart</button></p>
+    }

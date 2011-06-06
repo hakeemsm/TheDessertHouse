@@ -1,0 +1,32 @@
+﻿@model TheDessertHouse.Web.Models.EditUserView
+
+@Html.Partial(Url.Content("~/Views/Shared/Message.cshtml"))
+
+<h2>Edit User @Model.MembershipUser.UserName</h2>
+
+
+@using (Html.BeginForm())
+{
+   
+    <p><b>@Html.LabelFor(m => m.MembershipUser.UserName):&nbsp;</b>@Html.Encode(Model.MembershipUser.UserName)</p>
+    <p><b>@Html.LabelFor(m => m.MembershipUser.Email):&nbsp;</b>@Html.Encode(Model.MembershipUser.Email)</p>
+    <p><b>@Html.LabelFor(m => m.MembershipUser.CreationDate):&nbsp;</b>@Html.Encode(Model.MembershipUser.CreationDate)</p>
+    <p><b>@Html.LabelFor(m => m.MembershipUser.LastLoginDate):&nbsp;</b>@Html.Encode(Model.MembershipUser.LastLoginDate)</p>
+    <p><b>@Html.LabelFor(m => m.MembershipUser.LastActivityDate):&nbsp;</b>@Html.Encode(Model.MembershipUser.LastActivityDate)</p>
+    <p><b>@Html.LabelFor(m => m.MembershipUser.IsOnline):&nbsp;</b>@Html.CheckBoxFor(m => m.MembershipUser.IsOnline, new { disabled = "true" })</p>    
+    <p><b>@Html.LabelFor(m => m.MembershipUser.IsApproved):&nbsp;</b>@Html.CheckBox("approved",Model.MembershipUser.IsApproved)</p>
+    <p><b>@Html.LabelFor(m => m.MembershipUser.IsLockedOut):&nbsp;</b>@Html.CheckBoxFor(m => m.MembershipUser.IsLockedOut, new { disabled = "true" })</p>
+    
+    <h2>Edit User Roles</h2>
+    <ul>
+    
+    @foreach (var item in @Model.Roles)
+    {
+        <li>@item @Html.CheckBox(item, Roles.IsUserInRole(Model.MembershipUser.UserName, item))</li>
+        
+    }
+    </ul>
+    <p>
+    <input type="submit" value="Update User"/>
+    </p>
+}

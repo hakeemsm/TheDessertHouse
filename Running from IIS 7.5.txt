@@ -1,0 +1,3 @@
+Grant permission to Web folder to "Everyone"
+Change Identity on App pool to Local system
+Add IUSR login to DB server and grant permissions to this login on the app db

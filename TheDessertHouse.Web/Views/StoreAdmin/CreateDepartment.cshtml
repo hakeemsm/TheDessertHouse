@@ -1,0 +1,58 @@
+﻿@model TheDessertHouse.Web.Models.DepartmentView
+
+@Html.Partial(Url.Content("~/Views/Shared/Message.cshtml"))
+
+
+@using (Html.BeginForm("CreateDepartment", "StoreAdmin", FormMethod.Post, new { id = "frmDept" }))
+{
+    <table class="standard">
+        <tr>
+            <td class="labelCell">
+                @Html.LabelFor(m => m.Title)
+            </td>
+            <td class="fieldCell">
+                @Html.TextBoxFor(m => m.Title, new { maxlength = 256 })
+            </td>
+        </tr>
+        <tr>
+            <td class="labelCell">
+                @Html.LabelFor(m => m.Importance)
+            </td>
+            <td class="fieldCell">
+                @Html.TextBoxFor(m => m.Importance, new { maxlength = 3 })
+            </td>
+        </tr>
+        <tr>
+            <td class="labelCell">
+                @Html.LabelFor(m => m.ImageUrl)
+            </td>
+            <td class="fieldCell">
+                @Html.TextBoxFor(m => m.ImageUrl, new { maxlength = 256 })
+            </td>
+        </tr>
+        <tr>
+            <td class="labelCell">
+                @Html.LabelFor(m => m.Description)
+            </td>
+            <td class="fieldCell">            
+                @Html.TextAreaFor(m => m.Description, new {rows=4,cols=15 })            
+            </td>
+        </tr>
+    </table>
+    
+    @Html.HiddenFor(m => m.Id)
+    <center>
+    <p>
+    
+    <input type="submit" value="Create Department" id="btnCreateUpdateDept" />        
+    <input type="reset" value="Clear All" id="btnReset" />  
+    </p>
+    </center>
+}
+@section scriptContent{
+    <script type="text/javascript">
+        var validationUrl = '@Url.Action("CheckDepartmentTitle", "StoreAdmin")';
+        var departmentExists='@Model.DepartmentExists';
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/create-department.js")"></script>
+}

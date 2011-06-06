@@ -1,0 +1,16 @@
+﻿@if (null != ViewBag.ErrorMessage)
+{ 
+    <div class="error">@ViewBag.ErrorMessage</div>                
+}
+@if (null != ViewBag.SuccessMessage)
+{
+    <div class="success">@ViewBag.SuccessMessage</div>                              
+}
+@if (null != ViewBag.WarningMessage)
+{
+    <div class="warning">@ViewBag.WarningMessage</div>                                                              
+}
+@if (null != ViewBag.InformationalMessage)
+{
+    <div class="info">@ViewBag.InformationalMessage</div>                                                              
+}

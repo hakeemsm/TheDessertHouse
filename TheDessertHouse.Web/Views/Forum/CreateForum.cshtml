@@ -1,0 +1,49 @@
+﻿@model TheDessertHouse.Web.Models.ForumView
+
+<h2>
+    Create Forum</h2>
+    <br />
+@Html.Partial(Url.Content("~/Views/Shared/Message.cshtml"))
+<br />
+@using (Html.BeginForm("CreateForum", "Forum", FormMethod.Post, new { id = "frmForum" }))
+{ 
+    <div style="width: 750px">
+        <div style="width: 75px; float: left">
+            <p>
+                @Html.LabelFor(m => m.Title)
+            </p>
+            
+            <p>
+                @Html.LabelFor(m => m.Importance)
+            </p>
+            <p>
+                @Html.LabelFor(m => m.Moderated)
+            </p>
+            <p>
+                @Html.LabelFor(m => m.Description)
+            </p>
+        </div>
+        <div style="width: 675px; float: right">
+            <p>
+                @Html.TextBoxFor(m => m.Title, new { style = "width:200px" })
+            </p>
+            
+            <p>@Html.TextBoxFor(m => m.Importance, new { style = "width:200px" })</p>
+            <p>@Html.CheckBoxFor(m => m.Moderated)</p>
+            <p>                
+                @Html.TextAreaFor(m => m.Description, new { style = "width:200px" })
+            </p>
+            <p>
+                <input type="submit" value="Create Forum" id="btnCreateForum" class="create-forum" />
+            </p>
+        </div>
+    </div>
+
+}
+@section scriptContent{
+    <script type="text/javascript">
+        var validationUrl = '@Url.Action("CheckForumTitle", "Forum")';
+        var forumExists = '@Model.ForumExists';    
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/create-forum.js")" ></script>
+}

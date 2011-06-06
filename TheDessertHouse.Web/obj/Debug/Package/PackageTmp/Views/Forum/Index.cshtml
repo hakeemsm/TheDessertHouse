@@ -1,0 +1,20 @@
+﻿@model IEnumerable<TheDessertHouse.Web.Models.ForumView>
+
+<h2>
+    Forums</h2>
+<br />
+<div id="forums">
+    @foreach(var forum in ViewData.Model) {
+        <div id="forum-@forum.Id" class="forum">
+            <h2>@Html.ActionLink(forum.Title, "ViewForum", new { controller = "Forum", forumId = forum.Id, path = forum.Path })
+                </h2>
+            <p>
+                @if (forum.Moderated)
+                    {
+                    <strong>[moderated]</strong>
+                    }
+                @forum.Description</p>
+        </div>
+        <hr />
+}
+</div>

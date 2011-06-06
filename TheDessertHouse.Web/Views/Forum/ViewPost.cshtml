@@ -1,0 +1,105 @@
+﻿@model TheDessertHouse.Web.Models.ForumPostView
+@using TheDessertHouse.Web
+@Html.Partial(Url.Content("~/Views/Shared/Message.cshtml"))
+@{ 
+    var userVote = Model.UserVote;
+
+    var serializedReplies = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model);
+
+}
+<div id="posts">
+    <div id="post-@Model.Id" class="post">
+        <div class="post-body">
+            @Html.Encode(Model.Body)
+        </div>
+        <div class="vote-button">
+            @{var voteObj = Model.Votes.Where(v => v.AddedBy == User.Identity.Name).FirstOrDefault();}
+            @if (voteObj != null)
+            {
+                var direction = voteObj.Direction > 0 ? "liked" : "disliked";
+                <div>
+                    You @direction this post</div>
+            }
+            else
+            {
+                var voteClass = userVote >= 1 ? "selected" : "";
+                <div>
+                    <a class="vote-up @voteClass" href="#up" id="lnkLike">Like</a> | <a class="vote-down @voteClass" href="#down" id="lnkDislike">
+                        Dislike</a> <br /> <span>@Model.VoteCount</span> votes
+                </div>                                         
+            }
+        </div>
+        <br />
+        <div class="posted-last">
+            <span class="posted-at">@Model.LastPostDateInUTC ago </span><span class="posted-by">
+                by
+                <img src="@Model.Avatar" alt="" />
+                @Model.AddedBy</span>
+        </div>
+    </div>
+    <b>Replies</b>
+    <div id="forum-post-replies">
+        @*@foreach (var post in Model.Replies)
+        { 
+            <div id="reply-@post.Id" class="reply">
+                <div class="reply-header">
+                    Reply posted by <span class="name">
+                        <img src="@post.Avatar" />
+                        @post.LastPostBy</span> @post.LastPostDate.SinceUTCTime() ago</div>
+                @if (User.IsInRole("Editor"))
+                { 
+                    <div class="admin">
+                        <a class="remove" meta:id="@post.Id" href="#remove">remove</a>
+                    </div>
+                }
+                <blockquote class="body">@post.Body</blockquote>
+            </div>
+        }*@
+    </div>
+    @Html.Partial(Url.Content("~/Views/Shared/Pager.cshtml"), Model.PagedReplies)
+</div>
+@if (!ViewData.Model.Closed)
+{
+    <div id="replyPost" style="display: none">
+        <form method="post" action="#" class="post-reply-create">
+        <input type="hidden" id="postId" name="postId" value="@Model.Id" />
+        <input type="hidden"
+    id="postTitle" name="postTitle" value="@Model.Title" />
+        <p class="field input">
+            <label for="body">
+                Enter Your Reply</label><br />
+            <textarea id="txtReply" rows="3" cols="3"></textarea>
+        </p>
+        <hr />
+        <p>
+            <input type="button" id="btnPostReply" value="Add
+    Reply" />
+        </p>
+        </form>
+    </div>
+    <a href="#" id="lnkReply">Reply to this post</a>
+}
+else
+{
+    <div class="info">
+        This post has been closed, and no more replies can be made.</div>
+}
+<script type="text/x-jquery-tmpl" id="replyTemplate"> <div id="reply-${PostId}"
+class="reply"> <div class="reply-header"> Reply posted by <span class="name"> <img
+src="${Avatar}" alt="" /> ${LastPostBy}</span> ${LastPostDate} ago </div> <div class="admin-reply">
+<a class="remove-reply" meta:id="${PostId}" href="#remove">remove</a> </div> <blockquote
+class="body">${Body}</blockquote> </div> </script>
+@section scriptContent{
+    <script type="text/javascript">        var userIsEditor = '@User.IsInRole("Editor")'; var 
+    deserializedReplies = '@serializedReplies'.replace(/\n/g, "<br/>").replace(/&quot;/g,
+    "\""); var repliesObj = JSON.parse(deserializedReplies); var authenticateUrl = '@Url.Action("CheckAuthentication", "Account")';
+        var loginUrl = '@Url.Action("Login", "Account", new { returnUrl = Request.CurrentExecutionFilePath })';
+        var postReplyUrl = '@Url.Action("CreatePost", "Forum")'; var referrer = '@Request.UrlReferrer';
+        var postVoteUrl = '@Url.Action("CastVote", "Forum")'; var removePostUrl = '@Url.Action("RemovePost", "Forum")';
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/forumposts.js")"></script>
+    @if (User.IsInRole("Editor"))
+    {
+        <script type="text/javascript" src="@Url.Content("/Content/scripts/manage-forums.js")"></script>        
+    }
+}

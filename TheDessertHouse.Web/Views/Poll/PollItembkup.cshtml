@@ -1,0 +1,97 @@
+@model TheDessertHouse.Web.Models.PollView
+@{
+    var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+    var serObj = serializer.Serialize(Model);
+    
+}
+<div id="poll-@Model.Id" class="poll">
+    @*<h2>@Html.Encode(Model.PollQuestion)</h2>*@ @*<form action="#" method="post">*@
+    @*<ul class="poll-options">
+        @foreach (var option in Model.Options)
+        {
+            <li class="option" id="option-@option.Id">
+                <input type="radio" id="option-@option.Id" name="post-@Model.Id" value="@option.Id" />
+                <label class="text" for="option-@option.Id">@Html.Encode(option.OptionText)</label>
+            </li>
+            
+        }
+    </ul>*@ @*<center>
+        @if (Model.IsCurrent)
+        {          
+            <input type="submit" name="btnVote" value="Vote" id="btnVote" meta:id="@Model.Id" />
+        }
+    </center>*@ @*</form>*@
+    <script type="text/x-jquery-tmpl" id="pollOptions-@Model.Id">
+  <li class="option" id="option-${OptionId}">
+     <input type="radio" id="option-${OptionId}" name="post-${PollId}" value="${OptionId}" />
+     <label class="text" for="option-${OptionId}">${OptionText}</label>
+  </li>  
+    </script>
+    <script type="text/x-jquery-tmpl" id="pollForm-@Model.Id">
+<h2>${PollQuestion}</h2>	
+<form action="#" method="post" class="poll-form">
+<ul class="poll-options" id="poll-options-${PollId}">
+    
+</ul>
+
+<center>                        
+ <input type="button" name="btnVote" value="Vote" class="vote-button" id="btnVote${PollId}" meta:id="${PollId}" />        
+</center>
+</form>
+    </script>
+    <script type="text/x-jquery-tmpl" id="voteTotalDiv-@Model.Id">
+
+<ul class="poll-results">
+    
+</ul>
+<div class="total">There are ${TotalVotes} total votes for this poll.</div>
+    </script>
+    <script type="text/x-jquery-tmpl" id="pollResultOptions-@Model.Id">
+<li class="option" id="option-${OptionId}">
+	    <h3>${OptionText}</h3>
+	    <div class="graph"><img src="@Url.Content("~/Content/images/poll-graph.gif")" height="10" width="${VotePercentage}%" alt="Poll Graph" /></div>
+	    <div class="values">${VotePercentage}% (${Votes} votes)</div>
+	</li>
+    </script>
+    @*@if (Request.Cookies["poll_" + Model.Id] != null)
+{
+    var total = @Model.Options.Sum(o => o.Votes);
+    var pollQuestion = Model.PollQuestion;
+    foreach (var option in Model.Options)
+    {
+        var percentValue = Math.Round(((decimal)option.Votes / (decimal)total) * 100M);
+    <script type="text/javascript">
+        var templValues = [{ OptionId: '@option.Id', OptionText: '@option.OptionText', VotePercentage: '@percentValue', Votes: '@option.Votes'}];
+        $("#pollResultOptions").tmpl(templValues);
+        var ulContainer = $("#pollResult").find(".poll-options");
+        $("#pollResultOptions").appendTo(ulContainer);
+    </script>
+        
+    }
+
+    <script type="text/javascript">
+        var mainTmplValues = [{ PollQuestion: '@pollQuestion', TotalVotes: '@total'}];
+        $("#pollResult").tmpl(mainTmplValues);
+        $("#pollResult").appendTo("#pollResultsDiv");
+    </script>
+}*@
+    <script type="text/javascript">
+        var voteUrl = '@Url.Action("CastPoll", "Poll")';
+        //var pollId = '@Model.Id';
+
+        $(function () {
+            //        if (typeof this.pollClientObj == "undefined") {
+            //            this.pollClientObj = new PollClientObject();
+            //        }
+            //        if (this.pollClientObj.pollCollection == null) {
+            //            this.pollClientObj.pollCollection = new Array();
+            //        }        
+            var obj = new PollClientObject();
+            var escObj = '@serObj'.replace(/&quot;/g, "\"");
+            //        this.pollClientObj.pollCollection.push(JSON.parse(escObj));
+            obj.pollObj = JSON.parse(escObj);
+            obj.pollId = '@Model.Id';
+            obj.setDisplay();
+        })
+    </script>
+</div>

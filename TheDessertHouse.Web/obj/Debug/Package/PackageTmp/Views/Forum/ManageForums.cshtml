@@ -1,0 +1,38 @@
+﻿@model IEnumerable<TheDessertHouse.Web.Models.ForumView>
+
+<h2>
+    Manage Forums</h2>
+<br />
+<div id="forums">
+    @foreach (var forum in Model)
+    {
+
+        var forumId = "forum" + forum.Id;
+        
+        <div id="forum-@forum.Id" style="width:600px">
+            <div id="forumView-@forum.Id" class="forum" style="float:left;width:500px">
+                <h2>@Html.ActionLink(forum.Title, "ViewForum", new { forumId = forum.Id, path = forum.Path })</h2>
+                <p>
+                    @if (forum.Moderated)
+                    {
+                        <strong>[moderated]</strong>
+                    }
+                    @Html.Encode(forum.Description)
+                </p>
+            </div>
+            <div class="admin" style="float: right;width:100px">            
+                @Html.ActionLink("Edit", "EditForum", new { forumId = forum.Id })
+                &nbsp;|&nbsp; <a id="lnkRemoveForum" class="remove-forum" forumTitle="@forum.Title" forumId="@forum.Id" href="#">
+                    Remove</a>
+            </div>
+        </div>
+        
+                    
+    }
+</div>
+@section scriptContent{
+    <script type="text/javascript">
+        var removeForumUrl = '@Url.Action("RemoveForum", "Forum")';
+        var forumExists = '@ViewBag.ExistingForum';
+    </script>
+<script type="text/javascript" src="@Url.Content("~/Content/scripts/manage-forums.js")"></script>

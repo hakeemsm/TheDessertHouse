@@ -1,0 +1,12 @@
+﻿@model TheDessertHouse.Web.Models.PollView
+<div id="poll-@Model.Id">
+<h3>@Model.PollQuestion</h3>
+<ul id="poll-options" class="manage-options">
+    @foreach (var option in Model.Options)
+    {
+        <li id="option-@option.Id" class="option-item" ><span class="text">
+            @Html.Encode(option.OptionText)
+        </span></li>
+    }
+</ul>
+</div>

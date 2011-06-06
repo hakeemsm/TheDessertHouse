@@ -1,0 +1,96 @@
+﻿@model TheDessertHouse.Web.Models.ProductView
+
+@Html.Partial(Url.Content("~/Views/Shared/Message.cshtml"))
+
+@using (Html.BeginForm("CreateProduct", "StoreAdmin", FormMethod.Post, new { id = "frmCreateProduct" }))
+{
+    <table class="standard">
+        <tr>
+            <td class="labelCell">
+                @Html.LabelFor(m => m.CategoryId)
+            </td>
+            <td class="fieldCell">
+                @Html.DropDownListFor(m => m.CategoryId, Model.Departments, new { style = "width:140px" })
+            </td>
+        </tr>
+        <tr>
+            <td class="labelCell">
+                @Html.LabelFor(m => m.Title)
+            </td>
+            <td class="fieldCell">
+                @Html.TextBoxFor(m => m.Title)
+            </td>
+        </tr>
+        <tr>
+            <td class="labelCell">
+            @Html.LabelFor(m=>m.Description)
+            </td>
+            <td class="fieldCell">
+                @Html.TextBoxFor(m => m.Description)
+            </td>
+        </tr>
+        <tr>
+            <td class="labelCell">
+            @Html.LabelFor(m=>m.SKU)
+            </td>
+            <td class="fieldCell">
+                @Html.TextBoxFor(m => m.SKU)
+            </td>
+        </tr>
+        <tr>
+            <td class="labelCell">
+            @Html.LabelFor(m=>m.UnitPrice)
+            </td>
+            <td class="fieldCell">
+                @Html.TextBoxFor(m => m.UnitPrice)
+            </td>
+        </tr>
+        <tr>
+            <td class="labelCell">
+            @Html.LabelFor(m=>m.DiscountPercentage)
+            </td>
+            <td class="fieldCell">
+                @Html.TextBoxFor(m => m.DiscountPercentage)
+            </td>
+        </tr>
+        <tr>
+            <td class="labelCell">
+            @Html.LabelFor(m=>m.UnitsInStock)
+            </td>
+            <td class="fieldCell">
+                @Html.TextBoxFor(m => m.UnitsInStock)
+            </td>
+        </tr>
+        <tr>
+            <td class="labelCell">
+            @Html.LabelFor(m=>m.SmallImageUrl)
+            </td>
+            <td class="fieldCell">
+                @Html.TextBoxFor(m => m.SmallImageUrl)
+            </td>
+        </tr>
+        <tr>
+            <td class="labelCell">
+            @Html.LabelFor(m=>m.FullImageUrl)
+            </td>
+            <td class="fieldCell">
+                @Html.TextBoxFor(m => m.FullImageUrl)
+            </td>
+        </tr>
+    </table>
+    @Html.HiddenFor(m=>m.Id)
+    @Html.HiddenFor(m => m.ProductExists);
+    @Html.HiddenFor(m => m.DateAdded);                                         
+                                         
+    <input type="submit" value="Create Product" id="btnSave" />
+    <input type="reset" value="Clear All" id="btnReset" />  
+}
+
+@section scriptContent{
+    <script type="text/javascript">
+        var validationUrl = '@Url.Action("CheckProductTitle", "StoreAdmin")';
+        var productExists = '@Model.ProductExists';
+        var updateUrl='@Url.Action("EditProduct","StoreAdmin")';
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/manage-products.js")"></script>
+}

@@ -1,0 +1,53 @@
+﻿@model TheDessertHouse.Web.Models.PollView
+@{
+    var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+    var serObj = serializer.Serialize(Model);
+    
+}
+
+<div id="poll-@Model.Id" class="poll">
+    <script type="text/x-jquery-tmpl" id="pollOptions-@Model.Id">
+          <li class="option" id="option-${OptionId}">
+             <input type="radio" id="option-${OptionId}" name="post-${PollId}" value="${OptionId}" />
+             <label class="text" for="option-${OptionId}">${OptionText}</label>
+          </li>  
+    </script>
+    <script type="text/x-jquery-tmpl" id="pollForm-@Model.Id">
+        <h2 style="color:#9F6000">${PollQuestion}</h2>	
+        <form action="#" method="post" class="poll-form" id="pollForm${PollId}">
+        <ul class="poll-options" id="poll-options-${PollId}">
+    
+        </ul>
+
+        <center>                        
+         <input type="button" name="btnVote" value="Vote" class="vote-button" id="btnVote${PollId}" meta:id="${PollId}" />        
+        </center>
+        </form>
+    </script>
+    <script type="text/x-jquery-tmpl" id="voteTotalDiv-@Model.Id">
+        <ul class="poll-results-@Model.Id">
+    
+        </ul>
+        <div class="total">There are ${TotalVotes} total votes for this poll.</div>
+    </script>
+    <script type="text/x-jquery-tmpl" id="pollResultOptions-@Model.Id">
+        <li class="option" id="option-${OptionId}">
+	            <h3>${OptionText}</h3>
+	            <div class="graph"><img src="@Url.Content("~/Content/images/poll-graph.gif")" height="10" width="${VotePercentage}%" alt="Poll Graph" /></div>
+	            <div class="values">${VotePercentage}% (${Votes} votes)</div>
+        </li>
+    </script>
+    <script type="text/javascript">
+        var voteUrl = '@Url.Action("CastPoll", "Poll")';    
+
+        $(function () {
+
+            var obj = new PollClientObject();
+            var escObj = '@serObj'.replace(/&quot;/g, "\"");
+
+            obj.pollObj = JSON.parse(escObj);
+            obj.pollId = '@Model.Id';
+            obj.setDisplay();
+        })
+    </script>
+</div>

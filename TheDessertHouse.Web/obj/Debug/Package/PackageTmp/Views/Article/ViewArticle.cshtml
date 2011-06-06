@@ -1,0 +1,65 @@
+﻿@model TheDessertHouse.Web.Models.ArticleView
+
+<h2>@Model.Title</h2>
+<div id="article-view">
+    <ul>
+        <li><strong>Rating: </strong>
+            @Model.Votes @Model.UserLiteral have rated this article <span id="article-rating-value">
+                @if (Model.AverageRating > 0)
+                {
+                    <img src="@Url.Content(Model.ImageRatingUrl)"  alt="@Model.AverageRating" />
+                }
+            </span></li>
+        <li><strong>Posted By: </strong>@Model.AddedBy</li>
+        <li><strong>Views: </strong>this article has been read @Model.ViewCount times</li>
+        <li><strong>Location: </strong>@Html.Encode(Model.Country + "," + Model.State)</li>
+    </ul>
+    @MvcHtmlString.Create(Model.Body)
+</div>
+<form method="post" action="#" class="rate-article">
+<div>
+    <h3>
+        <label for="rating">
+            What would you rate this article?</label></h3>
+    <br />
+    <select name="rating" id="rating">
+        <option value="0">0 Stars</option>
+        <option value="1">1 Stars</option>
+        <option value="2">2 Stars</option>
+        <option value="3">3 Stars</option>
+        <option value="4">4 Stars</option>
+        <option value="5">5 Stars</option>
+    </select>
+    <input type="button" id="rate-button" value="Rate Article" />
+</div>
+</form>
+@if (Model.CommentsEnabled)
+{ 
+    <div id="article-comments">
+        <h3>
+            Comments</h3>
+            @{ViewBag.ManageComments=false;}
+        @foreach (var comment in Model.Comments)
+        { 
+            @Html.Partial(Url.Content("~/Views/Article/CommentItem.cshtml"), comment)
+        }
+    </div>
+   
+    <input type="hidden" id="articleId" name="articleId" value="@Model.Id" />
+    <input type="hidden" id="commentId" name="commentId" value="" />
+    @Html.Partial("CreateComment", new TheDessertHouse.Web.Models.CommentsView())
+}
+@section scriptContent{
+    <script type="text/x-jquery-tmpl" id="new-comment">
+    <div class="comment">
+	<div class="comment-header">Comment posted by <span class="name">${PosterName}</span> 1 second ago</div>
+	<blockquote class="body">${CommentText}</blockquote>
+    </div>
+    </script>
+    <script type="text/javascript">
+        var commentPostUrl = '@Url.Action("AddComment","Article")';
+        var rateArticleUrl = '@Url.Action("RateArticle","Article")';
+    </script>
+    
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/viewarticle.js")"></script>
+}

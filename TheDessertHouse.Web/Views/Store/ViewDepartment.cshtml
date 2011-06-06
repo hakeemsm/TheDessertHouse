@@ -1,0 +1,9 @@
+﻿@model IEnumerable<TheDessertHouse.Web.Models.ProductView>
+
+<div id="products">
+@foreach (var product in Model) { 
+	@Html.Partial("ProductItem", product)
+	
+}
+</div>
+

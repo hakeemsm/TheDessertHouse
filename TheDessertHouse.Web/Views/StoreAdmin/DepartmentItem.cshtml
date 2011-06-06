@@ -1,0 +1,7 @@
+﻿@model TheDessertHouse.Web.Models.DepartmentView
+
+<div id="department-@Model.Id" class="department">
+	<img src="@Model.ImageUrl" title="@Model.Title" alt="@Model.Title" class="main-image" />
+	<h3><a href="@Url.Action("ViewDepartment", "Store",new { departmentId = Model.Id})">@Model.Title</a></h3>
+	<p>@Model.Description</p>
+</div>

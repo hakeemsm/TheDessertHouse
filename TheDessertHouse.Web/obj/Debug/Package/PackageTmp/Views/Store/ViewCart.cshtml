@@ -1,0 +1,125 @@
+﻿@model ShoppingCart
+@using TheDessertHouse.Web.Models
+@using TheDessertHouse.Web.Configuration
+@if (Model.Count > 0)
+{
+    <table width="100%" cellpadding="2" cellspacing="0" align="left" summary="User Grid"
+        border="1" id="tblCart">
+        <tr style="font-weight: bold; background-color: #B94E0E;">
+            <td align="center">
+                Item
+            </td>
+            <td style="width: 100px" align="center">
+                Quantity
+            </td>
+            <td style="width: 100px" align="center">
+                Price
+            </td>
+            <td style="width: 20px">
+                &nbsp;
+            </td>
+        </tr>
+        @foreach (var shoppingCartItem in Model)
+        { 
+            <tr id="item-@shoppingCartItem.Item.Id">
+                <td align="center">@shoppingCartItem.Item.Title
+                </td>
+                <td align="center">@shoppingCartItem.Quantity
+                </td>
+                <td align="center">@shoppingCartItem.Item.UnitPrice.ToString("c")
+                </td>
+                <td align="center">
+                    <a class="delete-item-button" meta:id="@shoppingCartItem.Item.Id" href="#">
+                        <img border="0" alt="Remove item from cart"  src="@Url.Content("~/Content/images/DeleteSymbol.png")" align="middle" /></a>
+                </td>
+            </tr>
+        }
+        <tr style="font-weight: bold;">
+            <td>
+                &nbsp;
+            </td>
+            <td align="right">
+                Subtotal:
+            </td>
+            <td align="center">
+                <label id="subTotal">
+                    @Model.SubTotal.ToString("c")</label>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        <tr style="font-weight: bold;">
+            <td align="right">
+                Shipping:
+            </td>
+            <td align="right">
+                @Html.DropDownListFor(m => m.SelectedShippingMethod, (IEnumerable<SelectListItem>)ViewData["ShippingOptions"])
+            </td>
+            <td align="center">
+                <label id="shippingPrice">@Model.ShippingPrice.ToString("c")</label>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        <tr style="font-weight: bold;">
+            <td>
+                &nbsp;
+            </td>
+            <td align="right">
+                Total:
+            </td>
+            <td align="center">
+                <label id="total">@Model.Total.ToString("c")</label>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td align="center">
+                <form id="Paypal" name="Paypal" action="@DessertHouseConfigurationSection.Current.Store.PayPalServer" method="post">
+                <input type="hidden" name="cmd" value="_cart" />
+                <input type="hidden" name="upload" value="1" />
+                <input type="hidden" name="business" value="@DessertHouseConfigurationSection.Current.Store.PayPalAccount" />
+                <input type="hidden" name="shipping" value="@Model.ShippingPrice.ToString("N2")" />
+                <input type="hidden" name="amount" value="@Model.Total.ToString("N2")" />
+                @{
+                                                     int count = 1;
+                                                     foreach (var shoppingCartItem in Model)
+                                                     {
+                                                         @Html.Hidden("amount_" + count, shoppingCartItem.Item.UnitPrice.ToString("N2"));
+                                                         @Html.Hidden("item_name_" + count, shoppingCartItem.Item.Title);
+                                                         @Html.Hidden("item_number_" + count, shoppingCartItem.Item.Id);
+                                                         @Html.Hidden("quantity_" + count, shoppingCartItem.Quantity);
+                                                         count++;
+                                                     }
+                }
+                <button type="submit" id="paypal-checkout-button" value="PayPal">
+                    Checkout</button>
+                </form>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+    </table>
+}
+<div id="emptyCartMsgDiv" style="display: none">
+    <strong>There are no items in your cart. Click @Html.ActionLink("Here", "Index", "Store")
+        to continue shopping</strong>
+</div>
+@section scriptContent{
+    <script type="text/javascript">
+        var updateShippingUrl = '@Url.Action("UpdateShipping", "Store")';
+        var deleteItemUrl = '@Url.Action("DeleteItemFromCart", "Store")';
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/shopping-cart.js")"></script>
+}

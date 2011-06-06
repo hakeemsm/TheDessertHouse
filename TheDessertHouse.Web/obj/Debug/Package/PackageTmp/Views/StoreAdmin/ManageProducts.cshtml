@@ -1,0 +1,25 @@
+﻿@model IEnumerable<TheDessertHouse.Web.Models.ProductView>
+@Html.Partial(Url.Content("~/Views/Shared/Message.cshtml"))
+<div id="products">
+    @foreach (var product in Model)
+    { 
+        <div id="admin-@product.Id">
+            <div class="admin">
+                @Html.ActionLink("Edit", "EditProduct", new { controller = "StoreAdmin", productId = product.Id })&nbsp;|&nbsp;
+                <a href="#" class="delete-product-button" meta:id="@product.Id">Remove</a>
+            </div>
+            <div>
+                @Html.Partial(Url.Content("AdminProductItem"), product)
+            </div>
+            <div id="spacer-@product.Id">
+                <hr />
+            </div>
+        </div>
+    }
+</div>
+@section scriptContent{
+    <script type="text/javascript">
+        var deleteUrl = '@Url.Action("DeleteProduct", "StoreAdmin")';            
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/store-admin.js")"></script>
+}

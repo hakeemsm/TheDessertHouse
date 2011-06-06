@@ -1,0 +1,81 @@
+﻿@using TheDessertHouse.Web.Models
+@model TheDessertHouse.Web.Pagination<PollView>
+
+<div id="polls">
+    @foreach (PollView poll in Model)
+    {
+        <div id="poll-container-@poll.Id">
+            <div class="admin">
+                @if (!poll.IsCurrent)
+                { 
+                    <a id="set-current-@poll.Id" class="set-current" meta:id="@poll.Id" href="#current">
+                        Make Current</a>
+                }
+                |
+                @{ var archiveClass = poll.IsArchived ? "archived" : "set-archived";
+                   var archiveText = poll.IsArchived ? "Allow Voting" : "Archive";
+                }
+                <a id="set-archived-@poll.Id" class="@archiveClass" meta:id="@poll.Id" href="#archived">@archiveText</a>&nbsp;|&nbsp;
+                <a id="edit-poll-@poll.Id" class="edit-poll" meta:id="@poll.Id" href="#archived">Edit</a>&nbsp;|&nbsp;
+                @*@Html.ActionLink("Edit", "EditPoll", new { controller = "Poll", pollId = poll.Id })&nbsp;|&nbsp;*@
+                <a id="remove-poll-@poll.Id" class="remove-poll" meta:id="@poll.Id" href="#remove">Remove</a>
+            </div>
+            @Html.Partial(Url.Content("~/Views/Poll/ManagePollItem.cshtml"), poll)
+            <div id="pollEditContainer-@poll.Id" style="display:none" class="edit-poll-container-hidden">
+                <form id="form-@poll.Id" action="#" class="update-form">
+                @Html.Hidden("Id", poll.Id)
+                @Html.Hidden("PollQuestion", poll.PollQuestion)
+                <h3>@poll.PollQuestion</h3>
+                <table id="Options" class="manage-options">
+                    @{
+               var idx = 1;                      
+                    }
+                    @foreach (var option in poll.Options)
+                    {                                         
+                        <tr id="optionRow-@option.Id">
+                            <td>
+                                Option:@option.Id
+                            </td>
+                            <td>
+                                @Html.TextBox("OptionText", option.OptionText, new { metaId = option.Id, @class = "option-text" })
+                            </td>
+                            <td>
+                                <a href="#" id="delete-@option.Id" meta:id="@option.Id" class="delete-option-link">Delete
+                                    Option</a>
+                            </td>
+                        </tr>
+                        
+                    }
+                </table>
+                <input type="button" value="Update Poll" id="btnUpdate-@poll.Id" class="update-poll-button" meta:id="@poll.Id" />
+                <input type="button" value="Cancel" id="btnCancel-@poll.Id" class="update-cancel-button" meta:id="@poll.Id" />
+                </form>
+            </div>
+            <hr />
+            <script type="text/x-jquery-tmpl" id="pollEditTemplate-@poll.Id">
+                <div id="pollEditor-@poll.Id">
+                    <h3>@poll.PollQuestion</h3>
+                        <ul id="poll-options" class="manage-options">
+                    @foreach (var option in poll.Options)
+                    {
+                        <li id="option-@option.Id" class="option-item" ><span class="text">
+                            @Html.Encode(option.OptionText)
+                        </span></li>
+                    }
+                </ul>
+                </div>
+            </script>
+            
+        </div>
+    }
+    @Html.Partial(Url.Content("~/Views/Shared/Pager.cshtml"), ViewData.Model)
+</div>
+@section scriptContent{
+    <script type="text/javascript">
+        var setCurrentUrl = '@Url.Action("SetCurrent", "Poll")';
+        var setArchiveUrl = '@Url.Action("SetArchived", "Poll")';
+        var deletePollUrl = '@Url.Action("DeletePoll", "Poll")';
+        var updatePollUrl = '@Url.Action("UpdatePoll", "Poll")';
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/manage-polls.js")"></script>
+}

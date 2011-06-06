@@ -1,0 +1,55 @@
+﻿<h2>
+    Manage Roles</h2>
+
+@section scriptContent{
+    <script type="text/javascript">
+        var deleteRoleUrl = '@Url.Action("DeleteRole","Account")';
+
+        
+    </script>
+    <script id="newRoleRowTemplate" type="text/x-jquery-tmpl">
+        <tr id="role-${newRole}">
+            <td>
+                ${newRole}
+            </td>
+            <td align="center">
+                <a class="delete-role-button" href="#" meta:id="${newRole}">
+                    <img border="0" alt="Delete Role" src="@Url.Content("/Content/images/DeleteSymbol.png")" title="Delete Role"
+                        align="middle" /></a>
+            </td>
+        </tr>
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/role-script.js")"></script>
+}
+<p>
+    <b>Total Number of Roles:</b><span id="roleCount">@ViewBag.TotalRoles</span></p>
+<hr />
+
+<p>
+    Add New Role: @Html.TextBox("newRole") &nbsp; &nbsp;<input type="submit" id="btnAddRole"
+        value="Add New Role" /></p>
+<hr />
+<table width="50%" cellpadding="2" cellspacing="0" align="left" summary="User Grid"
+    border="1" id="tblRoles">
+    <tr style="font-weight: bold; background-color: #B94E0E;">
+        <td align="center">
+            Role Name
+        </td>
+        <td>
+            &nbsp;
+        </td>
+    </tr>
+    @foreach (var item in Roles.GetAllRoles())
+    {
+        <tr id="role-@item">
+            <td>
+                @Html.Encode(item)
+            </td>
+            <td align="center">
+                <a class="delete-role-button" href="#" meta:id="@item">
+                    <img border="0" alt="Delete Role" src="@Url.Content("/Content/images/DeleteSymbol.png")" title="Delete Role"
+                        align="middle" /></a>
+            </td>
+        </tr>
+    }
+</table>

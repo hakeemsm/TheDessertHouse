@@ -1,0 +1,21 @@
+﻿@model TheDessertHouse.Web.IPagination
+@using TheDessertHouse.Web
+<div class="pager">
+    @if (Model.TotalItemCount > Model.PageSize)
+    {
+
+        if (Model.HasPrevious)
+        {
+        <div style="text-align: left">
+            @Html.GetPreviousLink(this, Model.PageNumber)
+        </div>
+        }
+        if (Model.HasNext)
+        {
+        <div style="text-align: right">
+            @Html.GetNextLink(this, Model.PageNumber)
+        </div>
+
+        }
+    }
+</div>

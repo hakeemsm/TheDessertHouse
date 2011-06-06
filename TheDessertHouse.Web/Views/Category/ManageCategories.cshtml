@@ -1,0 +1,30 @@
+﻿@model IEnumerable<TheDessertHouse.Web.Models.CategoryView>
+
+@Html.Partial(Url.Content("~/Views/Shared/Message.cshtml"))
+
+@section scriptContent{
+<script type="text/javascript">
+    var removeCategoryUrl = '@Url.Action("RemoveCategory","Category")';
+</script>
+<script type="text/javascript" src="@Url.Content("~/Content/scripts/manage-categories.js")"></script>
+}
+
+<h2>Manage Categories</h2>
+<div id="categories">
+ @foreach (var category in Model)
+ {
+     
+     var catDivId = "catDiv" + category.Id;
+     <div id="@catDivId">
+     <div class="admin">
+     @Html.ActionLink("Edit", "EditCategory", new { controller = "Category", categoryId = category.Id }) &nbsp;|&nbsp;    
+     
+     <a id="lnkRemoveCategory" categoryTitle="@category.Title" categoryId="@category.Id">Remove</a>
+     </div>
+     <hr />
+     
+     @Html.Partial("CategoryItem", category)
+     </div>
+                    
+ }
+</div>

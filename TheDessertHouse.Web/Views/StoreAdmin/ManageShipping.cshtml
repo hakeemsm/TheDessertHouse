@@ -1,0 +1,100 @@
+﻿@model IEnumerable<TheDessertHouse.Web.Models.ShippingMethodView>
+@{
+    var smCollection = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model);
+}
+<table width="95%" cellpadding="2" cellspacing="0" align="center" summary="User Grid"
+    border="1" id="shipping-table">
+    <thead>
+        <tr style="background-color: #B94E0E;">
+            <th>
+                Shipping Option
+            </th>
+            <th>
+                Price
+            </th>
+            <th style="width: 100px">
+                &nbsp;
+            </th>
+        </tr>
+    </thead>
+    <tbody id="methods">
+        @*@foreach (var shippingMethod in Model)
+        { 
+            <tr id="shipping-method-@shippingMethod.Id">
+                <td align="center">@shippingMethod.Title
+                </td>
+                <td align="center">@shippingMethod.Price.ToString("C")
+                </td>
+                <td align="center">
+                    <a href="#" class="delete-shipping-method-button" meta:id="@shippingMethod.Id">
+                        <img border="0" alt="Delete Role" src="@Url.Content("~/Content/images/DeleteSymbol.png")" title="Delete Role" align="middle"/></a>
+                </td>
+            </tr>
+        }*@
+    </tbody>
+    <tfoot>
+        <tr style="background-color: #B94E0E;">
+            <td align="center">
+                <input type="text" id="txtShippingTitle" />
+            </td>
+            <td align="center">
+                <input type="text" id="txtShippingPrice" />
+            </td>
+            <td align="center">
+                <button id="btnShippingMethodAdd" type="submit">
+                    Add</button>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+
+<script type="text/x-jquery-tmpl" id="shippingMethodTmpl">
+    {{each(i,m) ShippingMethods}}        
+    <tr id="shipping-method-${m.Id}">
+    <td align="center">
+        ${m.Title}
+    </td>
+    <td align="center">
+        ${m.Price}
+    </td>
+    <td align="center">
+        <a href="#" class="delete-shipping-method-button" meta:id="${m.Id}">
+            <img border="0" alt="Delete Role" src="@Url.Content("~/Content/images/DeleteSymbol.png")" title="Delete Role" align="middle"/></a>
+    </td>
+    </tr>
+    {{/each}}
+
+</script>
+
+@*had to duplicate the template here. Both {{wrap}} and {{tmpl}} didnt work!*@
+<script type="text/x-jquery-tmpl" id="shippingRowTmpl">
+<tr id="shipping-method-${Id}">
+    <td align="center">
+        ${Title}
+    </td>
+    <td align="center">
+        ${Price}
+    </td>
+    <td align="center">
+        <a href="#" class="delete-shipping-method-button" meta:id="${Id}">
+            <img border="0" alt="Delete Role" src="@Url.Content("~/Content/images/DeleteSymbol.png")" title="Delete Role" align="middle"/></a>
+    </td>
+    </tr>
+</script>
+
+@section scriptContent{
+    <script type="text/javascript">
+        var addShippingUrl = '@Url.Action("CreateShippingMethod", "StoreAdmin")';
+        var deleteShippingUrl = '@Url.Action("DeleteShippingMethod", "StoreAdmin")';
+        var shippingMethods;
+        $(function () {
+            var desColl = '@smCollection'.replace(/&quot;/g, "\"");
+            shippingMethods = JSON.parse(desColl);
+            var obj = new Object();
+            obj.ShippingMethods = shippingMethods;
+            $("#shippingMethodTmpl").tmpl(obj).appendTo("#methods");
+        })
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/store-admin.js")"></script>
+}

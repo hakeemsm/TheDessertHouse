@@ -1,0 +1,12 @@
+﻿@model TheDessertHouse.Web.Models.CategoryView
+
+<div class="category" id="category-@Model.Id">
+    <h3>
+    <a href="@Url.Action("ViewCategory",new{categoryId=Model.Id})?type=atom" rel="feed" type="application/atom+xml"><img src="@Url.Content("~/Content/images/feed.png")" alt="RSS" /></a>&nbsp;
+    <a href="@Url.Action("ViewCategory",new{categoryId=Model.Id})">@Html.Encode(Model.Path)</a>
+    </h3>
+    <p>
+        @Html.Encode(Model.Description)
+    </p>
+</div>
+

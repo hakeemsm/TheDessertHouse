@@ -1,0 +1,74 @@
+﻿@model TheDessertHouse.Web.Models.PollView
+
+@Html.Partial(Url.Content("~/Views/Shared/Message.cshtml"))
+
+@section scriptContent{
+    <script type="text/javascript">
+        var existingPoll = '@Model.ExistingPoll';
+        var createPollUrl = '@Url.Action("CreatePoll", "Poll")';
+        var optionEditUrl = '@Url.Action("UpdateOption", "Poll")';
+        var deleteOptionUrl = '@Url.Action("DeleteOption", "Poll")';
+    </script>
+    <script type="text/x-jquery-tmpl" id="optionContainer">
+    
+    <tr id="divOption${optionId}">
+        <td>
+           <label>Option</label>
+        </td>
+        <td>
+            <input type="text" id="option${optionId}" class="poll-option-class" />	
+       
+            <input type="button" id="btnAddOption${optionId}" value="Remove Option" class="option-remove-class" meta:id="${optionId}" />
+        </td>		
+    </tr>
+    
+    </script>
+    <script type="text/x-jquery-tmpl" id="optionEditForm">
+    <form>
+    <span>
+    <input type="text" id="text-${optionId}" class="edit-text" value="${optionText}" /> 
+    </span>
+    <input type="button" class="update-option" meta:id="${optionId}" value="Update" />&nbsp;
+    <input type="button" class="cancel-option" value="Cancel" />
+    
+    </form>
+    
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/create-poll.js")" ></script>
+}
+<form id="frmCreateUpdatePoll" action="#" method="post">
+<table class="standard" id="tblPoll">
+    <tr>
+        <td>
+            @Html.LabelFor(m => m.PollQuestion)
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.PollQuestion, new { @maxLength = 256, style = "width:456px" })
+        </td>
+        <td>
+            <input type="button" value="Add Option" id="btnAddOption" />
+        </td>
+    </tr>
+</table>
+<div>
+    <center>
+        <input type="button" id="btnCreateUpdatePoll" value="Create Poll" />
+    </center>
+</div>
+</form>
+@if (Model.ExistingPoll)
+{
+    <h3>
+        Poll Options</h3>
+    <ul id="poll-options" class="manage-options">
+        @foreach (var option in Model.Options)
+        {
+            <li id="option-@option.Id" class="option-item" ><span class="text">
+                @Html.Encode(option.OptionText)
+            </span>
+                <input type="button" class="edit-option-button" meta:id="@option.Id" value="Edit" id="edit-option-@option.Id" />
+                <input type="button" class="delete-option-button" meta:id="@option.Id" value="Delete" id="delete-option-@option.Id" />
+            </li>
+        }
+    </ul>
+}

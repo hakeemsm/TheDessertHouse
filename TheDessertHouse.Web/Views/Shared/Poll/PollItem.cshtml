@@ -1,0 +1,16 @@
+﻿@model TheDessertHouse.Web.Models.PollView
+<div id="poll-@Model.Id" class="poll">
+	<h2>@Html.Encode(Model.PollQuestion)</h2>
+	
+	<form action="#" method="post">
+		<ul class="poll-options">
+		@foreach(var option in Model.Options) {
+			<li class="option" id="option-@option.Id">
+            <input type="radio" id="option-@option.Id" name="post-@Model.Id" value="@option.Id" />
+            <label class="text" for="option-@option.Id">@Html.Encode(option.OptionText)</label></li>
+		}
+		</ul>
+	
+		<button type="submit" name="poll-submit">Vote</button>
+	</form>
+</div>

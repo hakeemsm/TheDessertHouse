@@ -1,0 +1,400 @@
+﻿/* Message
+**********************************************************************/
+
+.info, .success, .warning, .error, .validation {
+	border: 1px solid;
+	margin: 10px 0px;
+	padding: 15px 10px 15px 50px;
+	background-repeat: no-repeat;
+	background-position: 10px center;
+}
+
+.info {
+	color: #00529B;
+	background-color: #BDE5F8;
+	background-image: url('/content/images/info.png');
+}
+
+.success {
+	color: #4F8A10;
+	background-color: #DFF2BF;
+	background-image: url('/content/images/success.png');
+}
+
+.warning {
+	color: #9F6000;
+	background-color: #FEEFB3;
+	background-image: url('/content/images/warning.png');
+}
+
+.error {
+	color: #D8000C;
+	background-color: #FFBABA;
+	background-image: url('/content/images/error.png');
+}
+
+.validation {
+	color: #D63301;
+	background-color: #FFCCBA;
+	background-image: url('/content/images/validation.png');
+}
+
+/* Forms */
+
+.field textarea, .field input[type=text], .field input[type=password], .field select {
+	width: 500px;
+}
+
+.input-message {
+	font-size: .7em;
+	white-space: nowrap;
+	height: 12px;
+	display: block;
+}
+
+.input-error {
+	color: #ff0000;
+}
+
+
+/* Administration */
+
+.admin {
+	float: right;
+}
+
+#article-comments .admin {
+	float: none;
+	text-align: right;
+}
+
+form hr {
+	display: none;
+}
+
+button.yes {
+	background-color: #DB0000;
+	color: #ffffff;
+	font-weight: bold;
+	width: 75px;
+	margin: 0 5px;
+}
+
+button.no {
+	background-color: #00DB00;
+	color: #ffffff;
+	font-weight: bold;
+	width: 75px;
+	margin: 0 5px;
+}
+
+#manageComments
+{
+	float:right;
+	color:#ffffff;
+}
+
+.edit-comment
+{
+	color:#ffffff;
+	
+}
+
+.comment-header a
+{	
+	text-decoration:underline
+}
+
+.remove-comment
+{
+	color:#ffffff;
+}
+/* Categories */
+
+#categories {
+	margin-top: 15px;
+}
+
+.category {
+	min-height: 91px;
+}
+
+.category img {
+	vertical-align: middle;
+}
+
+.category h3 {
+	font-size: 1.3em;
+}
+
+.category .main-image {
+	float: left;
+	margin: 3px 15px 3px 3px;
+}
+
+/* Articles */
+
+#articles {
+	margin-top: 15px;
+}
+
+.article {
+	min-height: 91px;
+}
+
+.article h3 {
+	font-size: 1.3em;
+}
+
+.article .category-image {
+	float: right;
+	margin: 5px;
+}
+
+/* Comments */
+#article-comments {
+	margin-top: 20px;
+}
+
+#forum-post-replies {
+	margin-top: 20px;
+}
+
+.comment,
+.reply {
+	position: relative;
+	margin-top: 1.2em;
+}
+
+.comment .comment-header,
+.reply .reply-header {
+	margin: 0;
+	padding: 5px 10px;
+	background: #A03200 none repeat scroll 0% 0%;
+	border-top: 5px solid #231202;
+	font-size: 1.1em;
+	color: #ffffff;
+}
+
+.comment blockquote {
+	margin: .7em 2.5em;
+}
+
+.reply blockquote {
+	margin: .7em 2.5em;
+	font-style: normal;
+}
+
+/* Polls */
+
+#polls {
+	margin-top: 20px;
+}
+
+#polls .poll {
+	margin-top: 10px;
+}
+
+#polls .poll-options .option:first-child {
+	border-top: solid 1px #A8C3CB;
+}
+
+#polls .poll-options .option {
+	border-bottom: solid 1px #A8C3CB;
+}
+
+/* Manage Polls */
+
+.manage-options .field input {
+	width: 350px;
+}
+
+.option .edit-option-button, .option .delete-option-button {
+	background: transparent none no-repeat scroll 0 0;
+	border: 0 none;
+	display: inline-block;
+	height: 16px;
+	padding: 0;
+	text-indent: -2000em;
+	vertical-align: middle;
+	width: 16px;
+}
+
+.option .edit-option-button {
+	background-image: url(/Content/images/EditSymbol.png);
+}
+
+.option .delete-option-button {
+	background-image: url(/Content/images/DeleteSymbol.png);
+}
+
+/* Store */
+
+#commerce {
+	margin-top: 20px;
+}
+
+#commerce .commerce {
+	margin-top: 10px;
+}
+
+
+.commerce {
+	min-height: 91px;
+}
+
+.commerce h3 {
+	font-size: 1.3em;
+}
+
+.commerce .department-image {
+	float: right;
+	margin: 5px;
+}
+
+/* Departments */
+
+#departments {
+	margin-top: 15px;
+}
+
+.department {
+	min-height: 91px;
+}
+
+.department img {
+	vertical-align: middle;
+}
+
+.department h3 {
+	font-size: 1.3em;
+}
+
+.department .main-image {
+	float: left;
+	margin: 3px 15px 3px 3px;
+}
+
+/* Forums */
+
+#forums {
+	margin-top: 20px;
+}
+
+#forums .forum {
+	margin-top: 10px;
+}
+
+#posts {
+	margin-top: 20px;
+}
+
+#posts .post {
+	position: relative;
+	margin-top: 10px;
+	min-height: 50px;
+}
+
+#posts .post:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.reply .admin {
+	position: absolute;
+	right: 0;
+}
+
+#posts .post .admin {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+#posts .post .stats .stat {
+	border: 1px solid;
+	padding: 4px;
+	width: 45px;
+}
+
+#posts .post .stats .stat strong {
+	display: block;
+	text-align: center;
+	font-size: 1.5em;
+}
+
+#posts .post .stats .stat small {
+	display: block;
+	text-align: center;
+	font-size: 1em;
+}
+
+#posts .post .stats .votes {
+	position: absolute;
+	top: 0;
+	left: 0;
+	color: #00529B;
+	background-color: #BDE5F8;
+}
+
+#posts .post .stats .replies {
+	position: absolute;
+	top: 0;
+	left: 60px;
+	color: #9F6000;
+	background-color: #FEEFB3;
+}
+
+#posts .post .stats .views {
+	position: absolute;
+	top: 0;
+	left: 120px;
+}
+
+#posts .post h3 {
+	position: absolute;
+	top: 5px;
+	left: 200px;
+	font-size: 1.3em;
+}
+
+#posts .post .posted-last {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+/*
+#posts .post .posted-last  {
+	font-weight: bold;
+}
+*/
+#posts .post .vote-button 
+{
+	float:right;
+	width: 130px;
+	padding: 0 10px 10px 0;
+	text-align: center;
+	margin-bottom:20px;
+}
+
+#posts .post .vote-button .vote-up,
+#posts .post .vote-button strong,
+#posts .post .vote-button .vote-down  {
+	
+	font-weight: bold;
+	padding: 3px;
+	
+}
+
+#posts .post .vote-button strong {
+	font-size: 2em;
+}
+
+#posts .post .vote-button .selected {
+	border: solid 1px;
+	color: #A03200;
+	background-color: #FEEFB3;
+}

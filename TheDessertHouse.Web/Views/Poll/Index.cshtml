@@ -1,0 +1,23 @@
+﻿@model TheDessertHouse.Web.Pagination<PollView>
+@using TheDessertHouse.Web.Configuration
+@using TheDessertHouse.Web.Models
+
+
+
+<h2>Polls</h2>
+
+@if (DessertHouseConfigurationSection.Current.Polls.ArchiveIsPublic) {
+	<span>@Html.ActionLink("Public", "Index", "Poll") | @Html.ActionLink("Archived", "Index", new { controller = "Poll", archived = true })</span>
+}
+
+<div id="polls">
+@foreach(var poll in Model) {
+	if (!poll.IsArchived && Request.Cookies["poll_" + poll.Id] == null) {
+		Html.RenderPartial(Url.Content("~/Views/Poll/PollItem.cshtml"), poll);
+	} else {
+		Html.RenderPartial(Url.Content("~/Views/Poll/PollResultItem.cshtml"), poll);
+	}	<hr />
+} 
+
+@Html.Partial(Url.Content("~/Views/Shared/Pager.cshtml"), Model)
+</div>

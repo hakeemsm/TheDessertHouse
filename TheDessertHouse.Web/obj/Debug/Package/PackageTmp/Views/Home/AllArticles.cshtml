@@ -1,0 +1,22 @@
+﻿@model IEnumerable<TheDessertHouse.Web.Models.ArticleView>>
+
+<h2>All Articles</h2>
+
+<div id="articles">
+@foreach (var article in Model)
+	{
+       @Html.ActionLink(article.Title,"ViewArticle",new{controller="Home",id=article.Id,path=article.Path})
+	}
+</div>
+
+@if (Model.Any())
+	{
+		 @Html.RenderPartial("Pager.cshtml",new Pagination(Model.Count,ViewBag.CurrentPage))
+	}
+
+
+
+@*@section sidebarContent{
+    @Html.Action("GetCategories")
+    
+}*@

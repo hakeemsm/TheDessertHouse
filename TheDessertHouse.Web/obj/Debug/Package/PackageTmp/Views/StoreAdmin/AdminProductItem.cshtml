@@ -1,0 +1,11 @@
+﻿@model TheDessertHouse.Web.Models.ProductView
+
+<div id="product-@Model.Id" class="product">
+    <img src="@Model.SmallImageUrl" title="@Model.Title" alt="@Model.Title" class="main-image" />
+    
+    <p>@Model.Description</p>
+    <p>
+        Regular Price: <b>@Model.UnitPrice.ToString("C")</b> |
+        @{ var salePrice = ((Model.UnitPrice * (100 - Model.DiscountPercentage)) / 100).ToString("C");}
+        Sale Price: <b><font color="red">@salePrice</font></b> | Units Available: <b>@Model.UnitsInStock</b></p>
+</div>

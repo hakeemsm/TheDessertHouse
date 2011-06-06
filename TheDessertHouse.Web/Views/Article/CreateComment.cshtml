@@ -1,0 +1,39 @@
+﻿@model TheDessertHouse.Web.Models.CommentsView
+
+<div id="create-comment">
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AddedBy)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AddedBy)
+            @Html.ValidationMessageFor(model => model.AddedBy)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AddedByEmail)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AddedByEmail)
+            @Html.ValidationMessageFor(model => model.AddedByEmail)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Body)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Body)
+            @Html.ValidationMessageFor(model => model.Body)
+        </div>       
+
+        <p>
+            <input type="button" value="Add Comment" id="btnAddComment" />
+        </p>
+  
+}
+</div>
+
+

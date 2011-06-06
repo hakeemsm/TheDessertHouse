@@ -1,0 +1,19 @@
+﻿@model TheDessertHouse.Web.Models.ArticleView
+<div class="article">
+    <img src="@Url.Content(Model.ArticleCategory.ImageUrl)" class="category-image" title="@Html.Encode(Model.ArticleCategory.Title)" alt="@Model.ArticleCategory.Title" />
+    <h3>@Html.ActionLink(Model.Title, "ViewArticle", "Article", new{articleId = Model.Id, path = Model.Path },null)</h3>
+    
+    <p>@Html.Encode(Model.Abstract ?? Model.Body)</p>
+    <ul>
+        <li><strong>Rating: </strong>@Model.Votes users have rated this article
+        @if (Model.AverageRating > 0)
+                {
+                    <img src="@Url.Content(Model.ImageRatingUrl)"  alt="@Model.AverageRating" />
+                }
+        </li>
+        <li><strong>Posted by: </strong>@Model.AddedBy</li>
+        <li><strong>Views: </strong> This article has been viewed @Model.ViewCount times
+        </li>
+        <li><strong>Location: </strong>@Model.Country, @Model.State </li>
+    </ul>
+</div>

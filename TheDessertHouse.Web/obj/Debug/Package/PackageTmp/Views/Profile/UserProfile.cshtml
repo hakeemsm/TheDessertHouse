@@ -1,0 +1,141 @@
+﻿@model TheDessertHouse.Web.Models.ProfileInformation
+
+@Html.Partial(Url.Content("~/Views/Shared/Message.cshtml"))
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(m => m.BirthDate)
+    
+    <div id="SitePreferences" class="form">
+        <h2 class="title">
+            Site Preferences</h2>
+        <div class="content">
+            <div class="input-field">
+                <table class="standard">
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.SubscriptionField)
+                        </td>
+                        <td class="field">@Html.DropDownListFor(model => model.SubscriptionField, Model.SubscriptionType)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.LanguageField)
+                        </td>
+                        <td class="field">@Html.DropDownListFor(model => model.LanguageField, Model.Language)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>    
+    <div id="PersonalDetails" class="form">
+        <h2 class="title">
+            Personal Details</h2>
+        <div class="content">
+            <div class="input-field">
+                <table class="standard">
+                    <tr>
+                        <td class="labelCell">@Html.LabelFor(model => model.FirstName)
+                        </td>
+                        <td class="fieldCell">
+                            @Html.EditorFor(model => model.FirstName)
+                            @Html.ValidationMessageFor(model => model.FirstName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="labelCell">@Html.LabelFor(model => model.LastName)
+                        </td>
+                        <td class="fieldCell">@Html.EditorFor(model => model.LastName)
+                            @Html.ValidationMessageFor(model => model.LastName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="labelCell">@Html.LabelFor(model => model.BirthDateField)
+                        </td>
+                        <td class="fieldCell">@Html.TextBoxFor(model => model.BirthDateField)
+                            @Html.ValidationMessageFor(model => model.BirthDateField)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="labelCell">@Html.LabelFor(model => model.Gender)
+                        </td>
+                        <td>@Html.DropDownListFor(model => model.Gender, Model.GenderType)
+                            @Html.ValidationMessageFor(model => model.Gender)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="labelCell">@Html.LabelFor(model => model.Occupation)
+                        </td>
+                        <td class="fieldCell">@Html.EditorFor(model => model.Occupation)
+                            @Html.ValidationMessageFor(model => model.Occupation)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="labelCell">@Html.LabelFor(model => model.Website)
+                        </td>
+                        <td class="fieldCell">@Html.EditorFor(model => model.Website)
+                            @Html.ValidationMessageFor(model => model.Website)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="Address" class="form">
+        <h2 class="title">
+            Location Information</h2>
+        <div class="content">
+            <table class="standard">
+                <tr>
+                    <td class="labelCell">@Html.LabelFor(model => model.Street)
+                    </td>
+                    <td class="fieldCell">@Html.EditorFor(model => model.Street)
+                        @Html.ValidationMessageFor(model => model.Street)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labelCell">@Html.LabelFor(model => model.City)
+                    </td>
+                    <td class="fieldCell">@Html.EditorFor(model => model.City)
+                        @Html.ValidationMessageFor(model => model.City)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labelCell">@Html.LabelFor(model => model.State)
+                    </td>
+                    <td class="fieldCell">@Html.EditorFor(model => model.State)
+                        @Html.ValidationMessageFor(model => model.State)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labelCell">@Html.LabelFor(model => model.Zipcode)
+                    </td>
+                    <td class="fieldCell">@Html.EditorFor(model => model.Zipcode)
+                        @Html.ValidationMessageFor(model => model.Zipcode)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labelCell">@Html.LabelFor(model => model.Country)
+                    </td>
+                    <td>@Html.DropDownListFor(model => model.CountryField, Model.Country)
+                        @Html.ValidationMessageFor(model => model.CountryField)
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <hr />
+    <div class="buttonPos">
+        <p>
+            <input type="submit" value="Submit" />
+        </p>
+    </div>
+}
+@section scriptContent{
+    <script type="text/javascript">
+        $(function () {
+            $("#BirthDateField").datepicker();
+        })
+    </script>
+}

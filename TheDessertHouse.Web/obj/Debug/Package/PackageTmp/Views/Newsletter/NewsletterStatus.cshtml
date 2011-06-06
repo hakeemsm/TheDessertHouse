@@ -1,0 +1,35 @@
+﻿@model IEnumerable<TheDessertHouse.Web.Models.NewsletterView>
+    <table width="100%" cellpadding="2" cellspacing="0" summary="User Grid" border="1">
+        <tr style="font-weight: bold; background-color: #A8C3CB;">
+            <td>
+                Newsletter
+            </td>
+            <td align="center">
+                Date Sent
+            </td>
+            <td align="center">
+                Status
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        @foreach (var newsletter in Model)
+        { 
+            <tr id="newsletter-@newsletter.Id">
+                <td>@Html.ActionLink(newsletter.Subject, "EditNewsletter", new { newsletterId = newsletter.Id })
+                </td>
+                <td>
+                    @{var dateSent = newsletter.DateSent == default(DateTime) ? "" : newsletter.DateSent.ToString();}
+                    @dateSent
+                </td>
+                <td>@newsletter.Status
+                </td>
+                <td align="center">
+                    <a href="#" id="remove-newsletter-@newsletter.Id" class="remove-newsletter" meta:id="@newsletter.Id" subject="@newsletter.Subject">
+                        <img border="0" alt="Delete Newsletter" src="@Url.Content("~/Content/images/DeleteSymbol.png")" title="Delete Newsletter"
+                            align="middle" /></a>
+                </td>
+            </tr>
+        }
+    </table>

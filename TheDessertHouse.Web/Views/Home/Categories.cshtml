@@ -1,0 +1,14 @@
+﻿@model IEnumerable<TheDessertHouse.Web.Models.CategoryView>
+<div id="news" class="boxed">
+    <h2 class="title">
+        Categories</h2>
+    <div class="content">
+        <ul>
+            <li class="first"><a href="@Url.Action("Index","Home")">All</a></li>
+            @foreach (var cat in Model)
+            {
+                <li>@Html.ActionLink(cat.Title, "Index","Home", new {category = cat.Title,pageNum=1 },null)</li>
+            }
+        </ul>
+    </div>
+</div>

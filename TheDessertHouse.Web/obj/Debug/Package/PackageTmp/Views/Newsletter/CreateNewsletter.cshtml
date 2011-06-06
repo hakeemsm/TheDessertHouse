@@ -1,0 +1,33 @@
+﻿@model TheDessertHouse.Web.Models.NewsletterView
+
+@Html.Partial(Url.Content("~/Views/Shared/Message.cshtml"))
+@using (Html.BeginForm("CreateNewsletter", "Newsletter", FormMethod.Post, new { @class = "newsletter-create" }))
+{
+    <p class="field input">
+        <label for="title">
+            Subject</label><br />
+        @Html.TextBoxFor(m => m.Subject, new { @maxlength = 256 })
+    </p>
+		
+    <p class="field input">
+        <label for="body">
+            Body</label><br />
+        @Html.TextBoxFor(m => m.HtmlBody, new { style = "height: 500px" })
+    </p>
+		
+    
+    <input type="submit" id="btnSubmit" value="Send Newsletter" />
+        
+}
+@section scriptContent{
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/tiny_mce/tiny_mce_src.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/create-newsletter.js")"></script>
+    <script type="text/javascript">
+        
+            var editAction = '@Url.Action("EditNewsletter", "Newsletter")';
+            var newsletterId = '@Model.Id';
+            
+        
+
+    </script>
+}

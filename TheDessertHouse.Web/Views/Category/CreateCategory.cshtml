@@ -1,0 +1,64 @@
+﻿@model TheDessertHouse.Web.Models.CategoryView
+@using TheDessertHouse.Web
+           
+
+<h2>
+    Create Category</h2>
+@Html.Partial(Url.Content("~/Views/Shared/Message.cshtml"))    
+@section scriptContent{
+    <script type="text/javascript">
+        var validationUrl = '@Url.Action("CheckTitle", "Category")';
+        var categoryExists = '@Model.CategoryExists';
+    </script>
+    <script src="@Url.Content("~/Content/scripts/category-script.js")" type="text/javascript"></script>
+}
+@using (Html.BeginForm("CreateCategory", "Category", FormMethod.Post, new Dictionary<string, object> { { "id", "frmCreateCategory" } }))
+{
+    
+    
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Title)
+    </div>
+    <div>
+        @Html.TextBoxFor(model => model.Title)                
+    </div>             
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Importance)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Importance)
+        
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.ImageUrl)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.ImageUrl)
+        
+    </div>
+    
+    
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Description)
+    </div>
+    <div class="editor-field">
+        @Html.TextAreaFor(model => model.Description)
+        
+    </div>
+    @Html.HiddenFor(m=>m.CategoryExists)
+        
+
+    <p>
+        @if (!Model.CategoryExists)
+        {          
+           <input type="submit" value="Create Category" id="btnCreateCategory" />
+        }
+        else
+	    {
+            <input type="submit" value="Update Category" id="btnCreateCategory" />
+        }
+    </p>
+  
+} 

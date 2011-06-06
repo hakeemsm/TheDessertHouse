@@ -1,0 +1,23 @@
+﻿@model IEnumerable<TheDessertHouse.Web.Models.DepartmentView>
+@Html.Partial(Url.Content("~/Views/Shared/Message.cshtml"))
+<div id="departments">
+    @foreach (var department in Model)
+    { 
+        <div id="admin-@department.Id">
+            <div class="admin">
+                @Html.ActionLink("Edit", "EditDepartment", "StoreAdmin", new { departmentId = department.Id }, null)&nbsp;|&nbsp;
+                <a href="#" class="delete-department-button" meta:id="@department.Id">Remove</a>
+            </div>
+            @Html.Partial("DepartmentItem", department)
+            <div id="spacer-@department.Id">
+                <hr />
+            </div>
+        </div>
+    }
+</div>
+@section scriptContent{
+    <script type="text/javascript">
+        var deleteUrl = '@Url.Action("DeleteDepartment", "StoreAdmin")';            
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/store-admin.js")"></script>
+}

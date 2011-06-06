@@ -1,0 +1,82 @@
+﻿@model TheDessertHouse.Web.Models.ManageUsersView
+
+@Html.Partial(Url.Content("~/Views/Shared/Message.cshtml"))
+
+@section scriptContent{
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/manageusers.js")">   
+    </script>
+}
+
+@using (Html.BeginForm("ManageUsers", "Account", FormMethod.Post, new { id = "frmSearchUsers" }))
+{
+    
+    <p>
+        <b>Total Registered Users: </b>@Model.RegisteredUsers</p>
+    <p>
+        <b>Number of users currently online: </b>@Model.UsersOnline</p>
+    
+    <p>
+        <span>
+            @Html.LabelFor(model => model.SearchInput)
+        </span><span>@Html.TextBoxFor(model => model.SearchInput, new { id = "searchInput" })</span>
+        <span>
+            @Html.LabelFor(model => model.SearchOptionList)
+        </span><span>@Html.DropDownListFor(model => model.SearchType, Model.SearchOptionList)</span>
+        <span>
+            @Html.Hidden("pageNum",Model.UserList.PageNumber,new{id="pageNum"})
+            
+            <input type="button" value="Search" id="btnSrchUser" /></span>
+    </p>
+    
+}
+@if (Model.UserList.Any())
+{
+    
+
+    <table cellpadding="2" cellspacing="2" summary="User Grid" border="1">
+        <thead>
+            <tr style="font-weight: bold; background-color: #B94E0E">
+                <th align="center">
+                    User Name
+                </th>
+                <th align="center">
+                    E-Mail
+                </th>
+                <th align="center">
+                    Created
+                </th>
+                <th align="center">
+                    Last Used
+                </th>
+                <th align="center">
+                    Approved
+                </th>
+                <th align="center">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.UserList)
+        {
+            <tr id="@item.UserName">
+                <td>@item.UserName
+                </td>
+                <td>@item.Email
+                </td>
+                <td align="center">@item.CreationDate.ToLocalTime()
+                </td>
+                <td align="center">@item.LastActivityDate.ToLocalTime()
+                </td>
+                <td align="center">@Html.CheckBox("Approved?", item.IsApproved, new { disabled = "true" })
+                </td>
+                <td align="center">
+                    @Html.ActionLink("Edit", "EditUser", new { userid = item.UserName }) | 
+                    <a id="lnkDeleteUser" userId="@item.UserName">Delete</a>
+                </td>
+                
+            </tr>
+        }
+    </table>
+        
+    @Html.Partial(Url.Content("~/Views/Shared/Pager.cshtml"), Model.UserList);
+}

@@ -1,0 +1,35 @@
+﻿@model TheDessertHouse.Web.Pagination<TheDessertHouse.Web.Models.CommentsView>
+@{    
+    Layout = "~/Views/Shared/SiteMaster.cshtml";
+}
+<h2>
+    Manage Comments</h2>
+<div id="article-comments">
+    @{ViewBag.ManageComments=true;}
+    @foreach (TheDessertHouse.Web.Models.CommentsView comment in Model)
+    {
+        @Html.Partial("CommentItem", comment)
+        
+    }
+    @Html.Partial(Url.Content("~/Views/Shared/Pager.cshtml"), Model)
+</div>
+@section scriptContent{
+    <script type="text/x-jquery-tmpl" id="editArticleSection">	
+        <form id="form-${commentId}">            
+            <div>
+                <label for="body-${commentId}">Comment</label> <br />
+                <textarea class="edit-body" id="body-${commentId}">${bodyText}</textarea><br />
+                <input type="button" class="update" meta:id="${commentId}" value="Update" id="update-${commentId}" />&nbsp;
+                <input type="button" class="cancel" value="Cancel" id="cancel-${commentId}" meta:id="${commentId}" />
+            </div>
+        </form>	
+    </script>
+    <script type="text/javascript">
+        var commentEditUrl = '@Url.Action("EditComment","Article")';
+        var commentRemoveUrl = '@Url.Action("RemoveComment","Article")';
+        var reloadUrl = '@Url.Action("ManageComments","Article")';
+        var pageNum = '@ViewBag.PageNumber';
+    </script>
+    
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/manage-comments.js")"></script>
+}

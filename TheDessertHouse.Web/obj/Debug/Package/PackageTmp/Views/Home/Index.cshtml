@@ -1,0 +1,17 @@
+﻿@model TheDessertHouse.Web.Models.HomeView
+
+<h2>@ViewBag.PageHeader</h2>
+<div id="articles">
+    @foreach (var article in Model.Articles)
+    {
+        @Html.Partial(Url.Content("~/Views/Article/ArticleItem.cshtml"), article)
+    }
+</div>
+@if (Model.Articles.Any())
+{
+    @Html.Partial("Pager",Model.Articles)
+}
+@section sidebarContent{
+    @Html.Partial("Categories",Model.Categories)
+    
+}

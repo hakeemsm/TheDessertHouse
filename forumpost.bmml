@@ -1,0 +1,24 @@
+<mockup version="1.0" skin="sketch" measuredW="816" measuredH="149" mockupW="746" mockupH="95">
+  <controls>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="70" y="54" w="457" h="48" measuredW="510" measuredH="25" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Some%20text%20with%20lots%20and%20lots%20of%20silly%20opinions%2C%20rants%2C%20raves%20yada%20yada%20blah..blah</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::LinkBar" x="719" y="54" w="-1" h="-1" measuredW="97" measuredH="25" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Like%2C%20Dislike</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="510" y="124" w="-1" h="-1" measuredW="156" measuredH="25" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>3%20days%20ago%20by%20dumbuser</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Label" x="740" y="88" w="-1" h="-1" measuredW="61" measuredH="25" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>10%20Votes</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

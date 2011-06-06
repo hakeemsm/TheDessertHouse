@@ -1,0 +1,19 @@
+﻿@model TheDessertHouse.Web.Models.CommentsView
+@using TheDessertHouse.Web
+           
+<div id="comment-@Model.Id" class="comment">
+    @{var timePosted = (DateTime.Now - @Model.DateAdded).ToLongString();}
+    <div class="comment-header">
+        Posted by <span class="name">@Model.AddedBy</span> @timePosted ago
+        @if (ViewBag.ManageComments && Roles.IsUserInRole("Editor"))
+        {         
+            <span> in </span> <a title="@Model.ForArticle.Title" href="@Url.Action("ViewArticle","Article",new{articleId=Model.ForArticle.Id,path=Model.ForArticle.Path})" class="edit-comment">@Model.ForArticle.Title</a>   
+            <span id="manageComments">                
+                <a href="#edit" class="edit-comment" meta:id="@Model.Id">Edit</a>&nbsp;|&nbsp;<a href="#remove" class="remove-comment" meta:id="@Model.Id">Remove</a>
+            </span>    
+        }
+        
+    </div>
+    <blockquote class="body" id="display-comment-@Model.Id">@Html.Encode(Model.Body)</blockquote>
+    
+</div>

@@ -1,0 +1,83 @@
+﻿@model TheDessertHouse.Web.Models.ArticleView
+
+<div>
+@Html.Partial(Url.Content("~/Views/Shared/Message.cshtml"))
+</div>
+
+@using (Html.BeginForm())
+{
+    
+    @Html.Hidden("IsDirty", true);
+    @*@Html.HiddenFor(m=>m.IsDirty,new{@value="true"})   *@
+    @Html.HiddenFor(m => m.AddedBy, new { @value = Model.AddedBy })   
+    @Html.HiddenFor(m => m.Id, new { @value = Model.Id })
+    <p class="field input">
+        @Html.LabelFor(m => m.CategoryTitle)<br />
+        @Html.DropDownListFor(model => model.CategoryTitle, Model.Categories)
+        <span class="input-message"></span>
+    </p>
+    <p class="field input">
+        @Html.LabelFor(m => m.Title)<br />
+        @Html.TextBoxFor(m => m.Title, new { @maxLength = 256 })
+    </p>
+    <p class="field input">
+        @Html.LabelFor(m => m.Abstract)<br />
+        @Html.TextAreaFor(m => m.Abstract)
+    </p>
+    <p class="field input">
+        @Html.LabelFor(m => m.Body)<br />
+        @Html.TextAreaFor(m => m.Body, new { style = "height:500px" })
+    </p>
+    <p class="field input">
+        @Html.LabelFor(m => m.Country)<br />
+        @Html.TextBoxFor(m => m.Country)
+    </p>
+    <p class="field input">
+        @Html.LabelFor(m => m.State)<br />
+        @Html.TextBoxFor(m => m.State, new { @maxLength = 256 })
+    </p>
+    <p class="field input">
+        @Html.LabelFor(m => m.City)<br />
+        @Html.TextBoxFor(m => m.City, new { @maxLength = 256 })
+    </p>
+    <p class="field input">
+        @Html.LabelFor(m => m.ReleaseDateField)<br />
+        @Html.TextBoxFor(m => m.ReleaseDateField)
+    </p>
+    <p class="field input">
+        @Html.LabelFor(m => m.ExpireDateField)<br />
+        @Html.TextBoxFor(m => m.ExpireDateField)
+    </p>
+   if (Roles.IsUserInRole("Editor"))
+   {
+       
+        <h3>
+            Options</h3>    
+        
+            <ul class="options">
+                <li><span>@Html.LabelFor(m => m.Approved)</span><span>@Html.CheckBoxFor(m => m.Approved)</span></li>
+                <li><span>@Html.LabelFor(m => m.Listed)</span><span>@Html.CheckBoxFor(m => m.Listed)</span></li>
+                <li><span>@Html.LabelFor(m => m.CommentsEnabled)</span><span>@Html.CheckBoxFor(m => m.CommentsEnabled)</span></li>
+                <li><span>@Html.LabelFor(m => m.OnlyForMembers)</span><span>@Html.CheckBoxFor(m => m.OnlyForMembers)</span></li>
+            </ul>
+        
+   }
+    
+    <input type="submit" value="Save Article" id="btnSave" />
+    <input type="reset" value="Clear All" id="btnReset" />  
+    
+}
+@section scriptContent{
+    <script type="text/javascript">
+        var validationUrl = '@Url.Action("CheckTitle", "Article")';
+        var userIsEditor = '@Roles.IsUserInRole("Editor")';
+        if (userIsEditor === 'True') {
+            $("form").attr("action", '@Url.Action("EditArticle", "Article")');
+            $("#btnSave").val("Update Article");
+            $("#btnReset").hide();
+        }
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/tiny_mce/tiny_mce_src.js")" ></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/article-script.js")" ></script>
+
+}

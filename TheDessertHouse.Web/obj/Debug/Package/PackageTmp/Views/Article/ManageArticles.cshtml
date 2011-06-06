@@ -1,0 +1,35 @@
+﻿@model TheDessertHouse.Web.Pagination<TheDessertHouse.Web.Models.ArticleView>
+@Html.Partial(Url.Content("~/Views/Shared/Message.cshtml"))
+<h2>
+    Manage Articles</h2>
+<div id="articles">
+    @foreach (var item in Model)
+    {    
+        <div class="admin">
+            @Html.ActionLink("Edit", "EditArticle", new { controller = "Article", articleId = item.Id })
+            &nbsp;|&nbsp;
+            @using (Html.BeginForm("DeleteArticle", "Article", FormMethod.Post))
+            {
+                <a href="#" meta:id="@item.Id" class="delete-article">Delete Article</a> 
+                @Html.Hidden("articleId",item.Id)
+                
+            }
+            
+            @*@Html.ActionLink("Remove", "DeleteArticle", new { controller = "Article", articleId = item.Id })*@
+            
+        </div>
+        @Html.Partial("ArticleItem", item)
+  
+    }
+    @Html.Partial(Url.Content("~/Views/Shared/Pager.cshtml"), Model)
+</div>
+@section scriptContent{
+    <script type="text/javascript">
+        $(function () {
+            $(".delete-article").click(function () {
+                $(this).parent("form").submit();
+            })
+        })
+
+    </script>
+}

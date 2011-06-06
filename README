@@ -1,0 +1,6 @@
+TheDessertHouse is a CMS app built using ASP.NET MVC 3. The Views are created with the Razor engine. It uses NHibernate 3 as the ORM framework and StructureMap 2.6.2 for DI.
+The DB is Sql Server 2008 R2
+ORM Persistence test are run against SqlList DB. All other Unit tests use the Open source MVCContrib project where interacting with ASP.NET components is involved
+Client side code is written in JQuery and uses JQuery templates extensively
+
+Conceptually the app is similar to TheBeerHouseApp 

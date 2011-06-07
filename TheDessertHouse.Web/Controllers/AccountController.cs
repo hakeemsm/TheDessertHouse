@@ -48,7 +48,7 @@ namespace TheDessertHouse.Web.Controllers
                     if (_memberShipProvider.ValidateUser(userInformationView.UserName, userInformationView.Password))
                     {
                         ViewBag.SuccessMessage = "Your account has been successfully created. Please login with your credentials";
-                        return RedirectToAction("Login");
+                        return View("Login");
                     }
                     ViewBag.ErrorMessage =
                         "Login failed! Please make sure you are using the correct user name and password.";
@@ -125,7 +125,7 @@ namespace TheDessertHouse.Web.Controllers
             {
                 string resetPassword = _memberShipProvider.ResetPassword(userName, hintAnswer);
                 if (_memberShipProvider.ValidateUser(userName, resetPassword))
-                    return RedirectToAction("ChangePassword", new { resetPassword });
+                    return RedirectToAction("ChangePassword", new { resetPassword,userName });
             }
             var membershipUserWrapper = _memberShipProvider.GetUser(userName, false);
             var userInformation = new UserInformationView();
@@ -157,12 +157,19 @@ namespace TheDessertHouse.Web.Controllers
                                                        userInformation.ChangePassword))
                 {
                     ViewBag.SuccessMessage = "Your password has been sucessfully changed. Please login with your new password";
-                    return RedirectToAction("Login");
+                    //return RedirectToAction("Login");
+                    return View("Login");
                 }
-                ViewBag.ErrorMessage = "Password could not be changed at this time. Please try again later";
+                ViewBag.ErrorMessage = "Password could not be changed. Please retry";
+
             }
             catch (Exception exception)
             {
+                if (exception is ArgumentException)
+                {
+                    ViewBag.ErrorMessage = exception.Message;
+                    return View(userInformation);
+                }
                 ViewBag.ErrorMessage = "An error occurred trying to change your password. Please try again";
                 throw;
             }
@@ -170,14 +177,15 @@ namespace TheDessertHouse.Web.Controllers
             return View(userInformation);
         }
 
-        public ActionResult ChangePassword(string resetPassword)
+        public ActionResult ChangePassword(string resetPassword, string userName)
         {
             ViewBag.PageTitle = "Change Password";
             var model = new UserInformationView();
-            if (!string.IsNullOrEmpty(resetPassword))
+            if (!string.IsNullOrEmpty(resetPassword)&&!string.IsNullOrEmpty(userName))
             {
                 ViewBag.InformationalMessage = "Your password has been reset to a temp. password. Please change it";
                 model.Password = resetPassword;
+                model.UserName = userName;
             }
             return View(model);
         }

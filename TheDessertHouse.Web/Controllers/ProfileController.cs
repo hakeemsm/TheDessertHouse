@@ -81,9 +81,10 @@ namespace TheDessertHouse.Web.Controllers
         {
             var retVal = false;
             var birthDay = Convert.ToDateTime(birthDateField);
-            if (DateTime.Now.Year - birthDay.Year > 18)
+            var yearDiff = DateTime.Now.Year - birthDay.Year;
+            if (yearDiff > 18)
                 retVal = true;
-            else if (DateTime.Now.Year - birthDay.Year == 0)
+            else if (yearDiff==18)
             {
                 retVal = true;
                 if ((DateTime.Now.Month == birthDay.Month && DateTime.Now.Day < birthDay.Day) ||

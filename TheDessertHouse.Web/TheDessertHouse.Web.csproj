@@ -350,6 +350,7 @@
     <Content Include="Content\scripts\tiny_mce\utils\mctabs.js" />
     <Content Include="Content\scripts\tiny_mce\utils\validate.js" />
     <Content Include="Content\scripts\tiny_mce\license.txt" />
+    <Content Include="Content\scripts\user-profile.js" />
     <Content Include="Content\scripts\userprofile.js" />
     <Content Include="Content\scripts\viewarticle.js" />
     <Content Include="Content\styles\MainStyles.css" />

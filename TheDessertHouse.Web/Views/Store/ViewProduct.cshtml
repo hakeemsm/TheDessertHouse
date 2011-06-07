@@ -1,6 +1,6 @@
 ﻿@model TheDessertHouse.Web.Models.ProductView
 <div class="left">
-    <img src="@Model.FullImageUrl" title="@Model.Title" alt="@Model.Title" class="main-image" />
+    <img src="@Url.Content(Model.FullImageUrl)" title="@Model.Title" alt="@Model.Title" class="main-image" />
 </div>
 <div class="right">
     <h3>@Model.Title</h3>

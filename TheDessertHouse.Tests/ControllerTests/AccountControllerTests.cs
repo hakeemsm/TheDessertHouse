@@ -243,7 +243,7 @@ namespace TheDessertHouse.Tests.ControllerTests
         public void Change_Password_Displays_View_With_Temp_Password()
         {
             var accountController = new AccountController(_memberShipMock.Object);
-            ActionResult result = accountController.ChangePassword("tempPassword");
+            ActionResult result = accountController.ChangePassword("tempPassword","tempUser");
 
             Assert.That(((ViewResult)result).ViewData.Model, Is.TypeOf<UserInformationView>());
             Assert.That(((UserInformationView)((ViewResult)result).ViewData.Model).Password, Is.EqualTo("tempPassword"));
@@ -260,9 +260,9 @@ namespace TheDessertHouse.Tests.ControllerTests
             var accountController = new AccountController(_memberShipMock.Object);
             ActionResult result = accountController.ChangePassword(userInformation);
 
-            Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
-            Assert.That(((RedirectToRouteResult)result).RouteValues.ContainsValue("Login"));
-            Assert.That(((RedirectToRouteResult)result).RouteValues.ContainsKey("action"));
+            Assert.That(result, Is.TypeOf<ViewResult>());
+            Assert.That(((ViewResult)result).ViewName,Is.EqualTo("Login"));
+            
         }
 
         [Test]

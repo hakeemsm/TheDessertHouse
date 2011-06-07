@@ -1,64 +1,70 @@
 ﻿@model TheDessertHouse.Web.Models.UserInformationView
-
 @Html.Partial(Url.Content("~/Views/Shared/Message.cshtml"))
-
 @using (@Html.BeginForm("Register", "Account"))
 {
     
     @Html.HiddenFor(model => model.ReturnUrl, new { value = "/Profile/UserProfile" })
     <table class="standard">
         <tr>
-            <td align="left">
+            <td class="labelCell">
                 @Html.LabelFor(m => m.UserName)
             </td>
-            <td align="right">
+            <td class="fieldCell">
                 @Html.TextBoxFor(m => m.UserName)
             </td>
         </tr>
         <tr>
-            <td align="left">
+            <td class="labelCell">
                 @Html.LabelFor(m => m.Password)
             </td>
-            <td align="right">
+            <td class="fieldCell">
                 @Html.PasswordFor(m => m.Password)
             </td>
         </tr>
         <tr>
-            <td align="left">
+            <td class="labelCell">
                 @Html.LabelFor(m => m.ConfirmPassword)
             </td>
-            <td align="right">
+            <td class="fieldCell">
                 @Html.PasswordFor(m => m.ConfirmPassword)
             </td>
         </tr>
         <tr>
-            <td align="left">
+            <td class="labelCell">
                 @Html.LabelFor(m => m.Email)
             </td>
-            <td align="right">
+            <td class="fieldCell">
                 @Html.EditorFor(m => m.Email)
             </td>
         </tr>
         <tr>
-            <td align="left">
+            <td class="labelCell">
                 @Html.LabelFor(m => m.SecretQuestion)
             </td>
-            <td align="right">
+            <td class="fieldCell">
                 @Html.EditorFor(m => m.SecretQuestion)
             </td>
         </tr>
         <tr>
-            <td align="left">
+            <td class="labelCell">
                 @Html.LabelFor(m => m.HintAnswer)
             </td>
-            <td align="right">
+            <td class="fieldCell">
                 @Html.EditorFor(m => m.HintAnswer)
             </td>
         </tr>
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                <button type="submit" id="btnRegister">
+                    Submit</button>
+            </td>
+        </tr>
     </table>
+
     
-    <button type="submit" id="btnRegister">
-        Submit</button>
 }
 @section scriptContent{
     <script type="text/javascript" src="@Url.Content("~/Content/scripts/register.js")"></script>

@@ -33,3 +33,17 @@ C:\Projects\TheDessertHouse\TheDessertHouse\TheDessertHouse.Domain\bin\Debug\NHi
 C:\Projects\TheDessertHouse\TheDessertHouse\TheDessertHouse.Domain\obj\Debug\ResolveAssemblyReference.cache
 C:\Projects\TheDessertHouse\TheDessertHouse\TheDessertHouse.Domain\obj\Debug\TheDessertHouse.Domain.dll
 C:\Projects\TheDessertHouse\TheDessertHouse\TheDessertHouse.Domain\obj\Debug\TheDessertHouse.Domain.pdb
+C:\Projects\TheDessertHouse\TheDessertHouse.Domain\bin\Debug\TheDessertHouse.Domain.dll
+C:\Projects\TheDessertHouse\TheDessertHouse.Domain\bin\Debug\TheDessertHouse.Domain.pdb
+C:\Projects\TheDessertHouse\TheDessertHouse.Domain\bin\Debug\Castle.Core.xml
+C:\Projects\TheDessertHouse\TheDessertHouse.Domain\bin\Debug\FluentNHibernate.pdb
+C:\Projects\TheDessertHouse\TheDessertHouse.Domain\bin\Debug\FluentNHibernate.xml
+C:\Projects\TheDessertHouse\TheDessertHouse.Domain\bin\Debug\Iesi.Collections.pdb
+C:\Projects\TheDessertHouse\TheDessertHouse.Domain\bin\Debug\Iesi.Collections.xml
+C:\Projects\TheDessertHouse\TheDessertHouse.Domain\bin\Debug\NHibernate.pdb
+C:\Projects\TheDessertHouse\TheDessertHouse.Domain\bin\Debug\NHibernate.xml
+C:\Projects\TheDessertHouse\TheDessertHouse.Domain\bin\Debug\NHibernate.ByteCode.Castle.pdb
+C:\Projects\TheDessertHouse\TheDessertHouse.Domain\bin\Debug\NHibernate.ByteCode.Castle.xml
+C:\Projects\TheDessertHouse\TheDessertHouse.Domain\obj\Debug\ResolveAssemblyReference.cache
+C:\Projects\TheDessertHouse\TheDessertHouse.Domain\obj\Debug\TheDessertHouse.Domain.dll
+C:\Projects\TheDessertHouse\TheDessertHouse.Domain\obj\Debug\TheDessertHouse.Domain.pdb

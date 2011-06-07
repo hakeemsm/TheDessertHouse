@@ -1,11 +1,11 @@
 ﻿@model TheDessertHouse.Web.Models.LoginViewModel
 
+@Html.Partial(Url.Content("~/Views/Shared/Message.cshtml"))
 <h2>
     Login</h2>
-@Html.Partial(Url.Content("~/Views/Shared/Message.cshtml"))
 <div class="boxed">
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Login","Account"))
 {
     @Html.ValidationSummary(true)
     @Html.HiddenFor(m => m.ReturnUrl);

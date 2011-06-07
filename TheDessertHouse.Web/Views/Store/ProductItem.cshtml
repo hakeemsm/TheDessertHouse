@@ -1,6 +1,6 @@
 ﻿@model TheDessertHouse.Web.Models.ProductView
 <div id="department-@Model.Id" class="department">
-	<img src="@Model.SmallImageUrl" title="@Model.Title" alt="@Model.Title" class="main-image" />
+	<img src="@Url.Content(Model.SmallImageUrl)" title="@Model.Title" alt="@Model.Title" class="main-image" />
 	<h3>
 		<a href="@Url.Action("ViewProduct", "Store",new { productId = Model.Id})">@Model.Title</a></h3>
 	<p>@Model.Description</p>

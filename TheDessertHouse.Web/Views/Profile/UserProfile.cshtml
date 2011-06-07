@@ -2,7 +2,7 @@
 
 @Html.Partial(Url.Content("~/Views/Shared/Message.cshtml"))
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("UserProfile", "Profile", FormMethod.Post, new {id="frmProfile" }))
 {
     @Html.ValidationSummary(true)
     @Html.HiddenFor(m => m.BirthDate)
@@ -137,5 +137,7 @@
         $(function () {
             $("#BirthDateField").datepicker();
         })
+        
     </script>
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/user-profile.js")"></script>
 }

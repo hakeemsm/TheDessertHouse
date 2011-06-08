@@ -11,7 +11,6 @@ namespace TheDessertHouse.Domain
 
         public virtual string AddedBy { get; set; }
 
-        //public virtual int ArticleCategoryId { get; set; }
         public virtual Category ArticleCategory { get; set; }
 
         public virtual string Title { get; set; }

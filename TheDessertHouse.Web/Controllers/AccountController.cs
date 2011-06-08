@@ -15,8 +15,7 @@ namespace TheDessertHouse.Web.Controllers
     public class AccountController : Controller
     {
         private IMembershipProvider _memberShipProvider;
-        //
-        // GET: /Account/
+ 
 
         public AccountController(IMembershipProvider membershipProvider)
         {
@@ -157,7 +156,6 @@ namespace TheDessertHouse.Web.Controllers
                                                        userInformation.ChangePassword))
                 {
                     ViewBag.SuccessMessage = "Your password has been sucessfully changed. Please login with your new password";
-                    //return RedirectToAction("Login");
                     return View("Login");
                 }
                 ViewBag.ErrorMessage = "Password could not be changed. Please retry";

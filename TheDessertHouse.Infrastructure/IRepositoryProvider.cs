@@ -7,19 +7,4 @@ namespace TheDessertHouse.Infrastructure
         IRepository GetRepository();
         ISessionFactory SessionFactory { get; set; }
     }
-
-    public class RepositoryProvider : IRepositoryProvider
-    {
-        public IRepository GetRepository()
-        {
-            return new Repository(SessionFactory);
-        }
-
-        public ISessionFactory SessionFactory
-        {
-            get; set;
-        }
-    }
-
-    
 }

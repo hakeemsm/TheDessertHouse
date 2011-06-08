@@ -1,10 +1,13 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Security;
 
 namespace TheDessertHouse.Domain
 {
+    /// <summary>
+    /// This class wraps the ASP.NET Membership Provider so that the Controllers and Unit tests don't have direct dependency on it
+    /// All the method names reflect the method names in the class that it wraps
+    /// </summary>
     public class MembershipProviderWrapper : IMembershipProvider
     {
         public MembershipCreateResult CreateUser(UserInformation userInformation, bool isApproved)

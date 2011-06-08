@@ -6,6 +6,9 @@ using TheDessertHouse.Domain;
 
 namespace TheDessertHouse.Infrastructure
 {
+    /// <summary>
+    /// Wraps the NHibernate session and performs CRUD calls
+    /// </summary>
     public class Repository : IRepository
     {
         private readonly ISession _session;
@@ -52,15 +55,7 @@ namespace TheDessertHouse.Infrastructure
         public object Save(IEntity entity)
         {
             return PerformSaveUpdateTransaction(() => _session.Save(entity));
-/*
-            object retVal;
-            using (var trx = _session.BeginTransaction())
-            {
-                retVal = _session.Save(entity);
-                trx.Commit();
-            }
-            return retVal;
-*/
+
         }
 
         public void Delete<T>(IEntity entity)

@@ -43,13 +43,7 @@ namespace TheDessertHouse.Web.Controllers
                             c => c.Title == categoryView.Title).
                             FirstOrDefault();
                         Mapper.Map(categoryView, category);
-                        //category.AddedBy = categoryView.AddedBy;
-                        //category.DateAdded = categoryView.DateAdded;
-                        //category.Description = categoryView.Description;
-                        //category.ImageUrl = categoryView.ImageUrl;
-                        //category.Importance = categoryView.Importance;
-                        //category.Path = categoryView.Path;
-                        //category.Title = categoryView.Title;
+                        
                         msg = "Category {0} has been updated";
                     }
                     else

@@ -80,7 +80,6 @@ namespace TheDessertHouse.Web.Controllers
                 
                 int pageSize = DessertHouseConfigurationSection.Current.Forums.PostReplyPageSize;
                 var forumPostView = Mapper.Map<ForumPost, ForumPostView>(post);
-                //var replies = Mapper.Map<IEnumerable<ForumPost>, IEnumerable<ForumPostReplyView>>(post.Replies);
                 var replies = post.Replies.Where(r=>r.Approved).Skip((pageNum - 1) * pageSize).Take(pageSize);
                 forumPostView.Replies = Mapper.Map<IEnumerable<ForumPost>, IEnumerable<ForumPostReplyView>>(replies);
                 var postReplies = new Pagination<ForumPostReplyView>(forumPostView.Replies, pageNum, pageSize, post.Replies.Count);

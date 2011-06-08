@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Net.Mail;
 using log4net;
 using TheDessertHouse.Domain;
@@ -8,6 +7,10 @@ using TheDessertHouse.Services.ControllerTests;
 
 namespace TheDessertHouse.Services
 {
+    /// <summary>
+    /// Gateway to the email service. Technically this class could have been in the Web assembly. Moved out so as to
+    /// have all external services in a separate project
+    /// </summary>
     public class EmailService : IEmailService
     {
         private IRepositoryProvider _repositoryProvider;
